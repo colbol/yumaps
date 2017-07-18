@@ -9,7 +9,7 @@ class CitiesController < ApplicationController
 
   def create
     @city = City.new(city_params)
-    @country.save
+    @city.save!
   end
 
   def show
