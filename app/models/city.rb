@@ -6,5 +6,5 @@ class City < ApplicationRecord
   validates :zoom, presence:true
 
   include PgSearch
-  pg_search_scope :search_by_name, against: [ :name ]
+  multisearchable against: [ :name ]
 end
