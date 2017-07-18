@@ -3,7 +3,7 @@ class CreateTags < ActiveRecord::Migration[5.0]
     create_table :tags do |t|
       t.string :name
       t.boolean :display
-      t.reference :districts
+      t.references :districts
 
       t.timestamps
     end

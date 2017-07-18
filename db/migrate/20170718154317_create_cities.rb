@@ -5,7 +5,7 @@ class CreateCities < ActiveRecord::Migration[5.0]
       t.float :latitude
       t.float :zoom
       t.string :name
-      t.reference :country
+      t.references :country
 
       t.timestamps
     end
