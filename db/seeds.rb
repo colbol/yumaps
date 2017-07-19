@@ -18,3 +18,7 @@ city_params =
 city_params.each do |params|
   City.create(params)
 end
+
+
+votes = Vote.create([{ip: '133.234.234.1', count: 0, tag_id: 1}])
+
