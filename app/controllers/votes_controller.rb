@@ -8,15 +8,27 @@ class VotesController < ApplicationController
 
   end
 
-   def create
-    @vote = Vote.new(vote_params)
-    @vote.save
-  end
-
   def update
     @vote = Vote.find(params[:id])
-    @vote.update!(count: @vote.count + 1)
-  end
+    if params[:type] == "upvote"
+      @vote.countdown = @vote.countdown + 1
+    else
+      @vote.countdown = @vote.countdown - 1
+    end
+    if @vote.save
+      respond_to do |format|
+        format.html { redirect_to vote_path(@vote) }
+        format.js  # <-- will render `app/views/votes/update.js.erb`
+      end
+    else
+      respond_to do |format|
+        format.html { render 'votes/index' }
+        format.js  # <-- idem
+      end
+    end
+ end
+
+
 
   def show
         @vote = Vote.find(params[:id])

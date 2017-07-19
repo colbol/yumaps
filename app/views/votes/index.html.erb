@@ -1,43 +1,10 @@
 
-
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <title>Upvote</title>
-</head>
-<body>
- <p> <%= @votes.first.count %> </p>
-<button class="btn btn-sm btn-sucess" id="fetch">
-  upvote
-</button>
-<button class="btn btn-sm btn-danger" id="fetch">
-  downvote
-</button>
-
-</body>
-</html>
-
-<%= content_for :after_js do %>
-  <script>
-  function upVote() {
-    $.ajax({
-      type: "PUT",
-      url: "votes/" + "<%= @votes.first.id %>",
-      success: function(data) {
-        console.log("colBoy")
-      },
-
-    });
-  }
+ <div id="countdown">
+  <%= render "vote_count", vote: @votes.first %>
+    </div>
 
 
+  <%= link_to "upvote", vote_path(@votes.first, type: 'upvote'), method: :put, remote: true  %>
 
-  $(document).ready(function() {
-    $('#fetch').click(function() {
-      upVote();
-    });
+ <%= link_to "downvote", vote_path(@votes.first, type: 'downvote'), method: :put, remote: true  %>
 
-  });
-  </script>
-<% end %>
