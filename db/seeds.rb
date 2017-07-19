@@ -5,20 +5,25 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Country.destroy_all
+City.destroy_all
+District.destroy_all
+Tag.destroy_all
+Vote.destroy_all
 
-
-countries = Country.create([{ name: 'Canada'}])
+country = Country.create(name: 'Canada')
 city_params =
 [
-  {name: 'Montreal' , longitude: 40, latitude: 10, zoom: 7,country_id: (Country.find_by name: 'Canada').id  },
-  {name: 'Toronto' , longitude: 80, latitude: 100, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
-  {name: 'Ottawa' , longitude: 30, latitude: 20, zoom: 1,country_id: (Country.find_by name: 'Canada').id  }
+  {name: 'Montreal' , longitude: 40, latitude: 10, zoom: 7,country_id: country.id },
+  {name: 'Toronto' , longitude: 80, latitude: 100, zoom: 3,country_id: country.id },
+  {name: 'Ottawa' , longitude: 30, latitude: 20, zoom: 1,country_id: country.id  }
 ]
 
 city_params.each do |params|
-  City.create(params)
+  city = City.create(params)
+  district = District.create(name: 'districtA', city_id: city.id)
+  tag = Tag.create!(name: 'tagname', display: true, district_id: district.id)
+  Vote.create(ip: '133.234.234.1', tag_id: tag.id)
 end
 
-
-votes = Vote.create([{ip: '133.234.234.1', count: 0, tag_id: 1}])
 
