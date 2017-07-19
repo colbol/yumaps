@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
-<h1>hi</h1>
-<%= raise %>
-  <p> <%= @votes.first.count %> </p>
-</body>
-</html>
+
+ <div id="countdown">
+  <%= render "vote_count", vote: @votes.first %>
+    </div>
+
+
+  <%= link_to "upvote", vote_path(@votes.first, type: 'upvote'), method: :put, remote: true  %>
+
+ <%= link_to "downvote", vote_path(@votes.first, type: 'downvote'), method: :put, remote: true  %>
+

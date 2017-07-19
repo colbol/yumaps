@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719180715) do
+ActiveRecord::Schema.define(version: 20170719211912) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,10 +56,10 @@ ActiveRecord::Schema.define(version: 20170719180715) do
   create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.boolean  "display"
-    t.integer  "districts_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["districts_id"], name: "index_tags_on_districts_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "district_id"
+    t.index ["district_id"], name: "index_tags_on_district_id", using: :btree
   end
 
   create_table "votes", force: :cascade do |t|
@@ -66,7 +67,7 @@ ActiveRecord::Schema.define(version: 20170719180715) do
     t.integer  "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "count"
+    t.integer  "countdown"
     t.index ["tag_id"], name: "index_votes_on_tag_id", using: :btree
   end
 

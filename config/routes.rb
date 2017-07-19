@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   get 'results/index'
   resources :votes
   resources :countries, only: [:index, :new, :create, :show ]

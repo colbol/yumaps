@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Country.destroy_all
+City.destroy_all
+District.destroy_all
+Tag.destroy_all
+Vote.destroy_all
 
 
 countries = Country.create([{ name: 'Canada'}])
@@ -23,9 +28,10 @@ city_params =
 ]
 
 city_params.each do |params|
-  City.create(params)
+  city = City.create(params)
+  district = District.create(name: 'districtA', city_id: city.id)
+  tag = Tag.create!(name: 'tagname', display: true, district_id: district.id)
+  Vote.create(ip: '133.234.234.1', tag_id: tag.id, countdown: 0)
 end
 
-
-votes = Vote.create([{ip: '133.234.234.1', count: 0, tag_id: 1}])
 
