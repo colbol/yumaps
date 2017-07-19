@@ -11,12 +11,20 @@ District.destroy_all
 Tag.destroy_all
 Vote.destroy_all
 
-country = Country.create(name: 'Canada')
+
+countries = Country.create([{ name: 'Canada'}])
+countries = Country.create([{ name: 'Monaco'}])
+countries = Country.create([{ name: 'Belarus'}])
 city_params =
 [
-  {name: 'Montreal' , longitude: 40, latitude: 10, zoom: 7,country_id: country.id },
-  {name: 'Toronto' , longitude: 80, latitude: 100, zoom: 3,country_id: country.id },
-  {name: 'Ottawa' , longitude: 30, latitude: 20, zoom: 1,country_id: country.id  }
+  {name: 'Montreal' , longitude: 45.5017, latitude: 73.5673, zoom: 7,country_id: (Country.find_by name: 'Canada').id  },
+  {name: 'Toronto' , longitude: 43.6532, latitude: 79.3832, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+  {name: 'Calgary' , longitude: 51.0486, latitude: 114.0708, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+  {name: 'Winnipeg' , longitude: 49.8951, latitude: 97.1384, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+  {name: 'Whitehorse' , longitude: 60.7212, latitude: 135.0568, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+  {name: 'Monaco City' , longitude: 43.7308, latitude: 7.4226, zoom: 3,country_id: (Country.find_by name: 'Monaco').id  },
+  {name: 'Minsk' , longitude: 53.9045, latitude: 127.5615, zoom: 3,country_id: (Country.find_by name: 'Belarus').id  },
+  {name: 'Ottawa' , longitude: 30, latitude: 20, zoom: 1,country_id: (Country.find_by name: 'Canada').id  }
 ]
 
 city_params.each do |params|

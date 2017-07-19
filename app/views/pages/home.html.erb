@@ -1,8 +1,15 @@
 <div class="wrap">
    <div class="search">
-      <input type="text" class="searchTerm" placeholder="What's up colBoy?">
+      <input type="text" class="searchTerm" placeholder="Budapest">
       <button type="submit" class="searchButton">
         <i class="fa fa-search"></i>
      </button>
    </div>
 </div>
+<%= link_to "Cities", cities_path %>
+
+
+<%= form_tag results_index_path, method: :get do %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Search", name: nil %>
+<% end %>
