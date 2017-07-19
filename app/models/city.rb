@@ -4,4 +4,7 @@ class City < ApplicationRecord
   validates :longitude, presence: true
   validates :latitude, presence:true
   validates :zoom, presence:true
+
+  include PgSearch
+  multisearchable against: [ :name ]
 end
