@@ -1,5 +1,6 @@
 class InstallSomeContribPackages < ActiveRecord::Migration[5.0]
-    def up
+
+  def up
     enable_extension "pg_trgm"
     enable_extension "fuzzystrmatch"
     enable_extension "unaccent"
