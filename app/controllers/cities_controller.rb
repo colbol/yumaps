@@ -1,6 +1,7 @@
 class CitiesController < ApplicationController
   def index
      @cities = City.all
+     @tag = Tag.new
   end
 
   def new
