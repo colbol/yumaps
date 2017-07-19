@@ -6,5 +6,10 @@ class City < ApplicationRecord
   validates :zoom, presence:true
 
   include PgSearch
-  multisearchable against: [ :name ]
+  # multisearchable against: [ :name ], using: [ :trigram, :tsearch => {:prefix => true} ]
+  pg_search_scope :search_city, against: [ :name ], ignoring: :accents, using: {
+                    tsearch: { prefix: true },
+                    dmetaphone: { any_word: true, sort_only: true },
+                    trigram: {}
+                  }
 end
