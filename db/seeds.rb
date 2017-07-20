@@ -31,7 +31,7 @@ city_params.each do |params|
   city = City.create(params)
   district = District.create(name: 'districtA', city_id: city.id)
   tag = Tag.create!(name: 'tagname', display: true, district_id: district.id)
-  Vote.create(ip: '133.234.234.1', tag_id: tag.id, countdown: 0)
+  Vote.create(ip: '133.234.234.1', tag_id: tag.id)
 end
 
 

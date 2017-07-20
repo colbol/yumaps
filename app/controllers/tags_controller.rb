@@ -1,12 +1,11 @@
-class VotesController < ApplicationController
+class TagsController < ApplicationController
   def index
-    @votes = Vote.all
+    @tags = Tag.all
   end
 
-  def new
-    @vote = Vote.new
 
-  end
+  def
+
 
   def update
     @vote = Vote.find(params[:id])
