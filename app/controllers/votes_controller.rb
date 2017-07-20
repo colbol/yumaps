@@ -11,7 +11,7 @@ class VotesController < ApplicationController
   def update
     @vote = Vote.find(params[:id])
     if params[:type] == "upvote"
-      @vote.countdown = @vote.countdown + 1
+      @vote.countdown = @vote.count + 1
     else
       @vote.countdown = @vote.countdown - 1
     end
@@ -41,4 +41,3 @@ class VotesController < ApplicationController
   end
 
 end
-
