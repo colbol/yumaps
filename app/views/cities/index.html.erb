@@ -83,9 +83,8 @@ var centro = turf.centroid(e.features[0])
 new mapboxgl.Popup()
 
 .setLngLat(centro.geometry.coordinates)
-.setHTML('<%= simple_form_for @tag do |f| %> \
+.setHTML('<%= simple_form_for :city do |f| %> \
 <%= f.input :name %> \
-<%#= f.input :district_name, as: :hidden, input_html: {id: 'district_name'}  %>
 <%= f.submit 'Submit', input_html: {id: "submit-btn"} %> \
 <% end %>')
 .addTo(map);
