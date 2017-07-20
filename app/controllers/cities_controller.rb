@@ -23,7 +23,8 @@ class CitiesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
-    @tag = Tag.new (tag_params)
+    @tag = Tag.new
+    @tags = Tag.all
   end
 
   private
