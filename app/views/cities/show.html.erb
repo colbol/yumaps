@@ -1,0 +1,10 @@
+
+<div class="map-div" id='map'></div>
+   <% raise %>
+<div class='filter-ctrl'>
+  <input id='filter-input' type='text' name='filter' placeholder='Filter by name' />
+</div>
+
+<% content_for(:after_js) do %>
+  <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
+<% end %>
