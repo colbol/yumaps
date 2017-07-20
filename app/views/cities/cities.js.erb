@@ -6,7 +6,6 @@
       zoom: 10.3 // starting zoom
     });
 
-
       // map.scrollZoom.disable();
 
 
@@ -23,7 +22,7 @@
           "layout": {},
           "paint": {
             "fill-color": "#627BC1",
-            "fill-opacity": 0.5
+            "fill-opacity": 0.2
           }
         });
 
@@ -33,8 +32,8 @@
           "source": "states",
           "layout": {},
           "paint": {
-            "line-color": "#627BC1",
-            "line-width": 2
+            "line-color": "#fff",
+            "line-width": 1
           }
         });
 
@@ -55,7 +54,8 @@
           "type": "symbol",
           "source": "states",
           "layout": {
-            "text-field": ["==", "FEDNAME", ""]
+            "text-field": "{FEDNAME}",
+            "text-size": 11,
           }
 
         });
@@ -92,7 +92,10 @@
       new mapboxgl.Popup()
 
       .setLngLat(centro.geometry.coordinates)
-      .setHTML(e.features[0].properties.FEDNAME)
+      .setHTML('<%= simple_form_for @tag do |f| %> \
+        <%= f.input :name %> \
+        <%= f.submit 'Submit' %>')
+      // .setHTML('<input type="text">')
       .addTo(map);
                 // console.log(e.features[0].geometry);
                 // console.log(centro.geometry.coordinates);
