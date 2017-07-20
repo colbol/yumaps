@@ -18,8 +18,10 @@ zoom: 10.3 // starting zoom
 
 // map.scrollZoom.disable();
 
+var neighbor_name = geo.features[4].properties.FEDENAME
 
 map.on('load', function () {
+
 map.addSource("states", {
 "type": "geojson",
 "data": geo
@@ -64,51 +66,30 @@ map.addLayer({
 "type": "symbol",
 "source": "states",
 "layout": {
-"text-field": "{FEDNAME}",
+"text-field": "{FEDENAME}",
 "text-size": 11,
 }
 
 });
 
-// When the user moves their mouse over the states-fill layer, we'll update the filter in
-// the state-fills-hover layer to only show the matching state, thus making a hover effect.
-// map.on("mousemove", "state-fills", function(e) {
-//     map.setFilter("state-fills-hover", ["==", "FEDNAME", e.features[0].properties.FEDNAME]);
-//     console.log(e.features)
-// });
-
-
-// Reset the state-fills-hover layer's filter when the mouse leaves the layer.
-//     map.on("mouseleave", "state-fills", function() {
-//         map.setFilter("state-fills-hover", ["==", "FEDNAME", ""]);
-//     });
-// });
-
-// map.on('mousemove', function (e) {
-
-//       map.addLayer({
-//           "id": "neighbor",
-//           "type": "symbol",
-//           "source": "states",
-//           "layout": {
-//             "text-field": "Hello"
-//           }
-
-//     });
-// });
-
 map.on('click', 'state-fills', function (e) {
+console.log(geo)
+// geo.features[0].properties.push({
+ // toptag:"Champignon",
+// });
+// console.log(geo.features[0].properties);
+// $("#district_name").get(0).value = geo.features[0].properties;
 var centro = turf.centroid(e.features[0])
 new mapboxgl.Popup()
 
 .setLngLat(centro.geometry.coordinates)
 .setHTML('<%= simple_form_for @tag do |f| %> \
 <%= f.input :name %> \
-<%= f.submit 'Submit' %> \
+<%#= f.input :district_name, as: :hidden, input_html: {id: 'district_name'}  %>
+<%= f.submit 'Submit', input_html: {id: "submit-btn"} %> \
 <% end %>')
-// .setHTML('<input type="text">')
 .addTo(map);
-// console.log(e.features[0].geometry);
+// console.log(e.features[0].properties.FEDENAME);
 // console.log(centro.geometry.coordinates);
 });
 
@@ -122,7 +103,6 @@ map.on('mouseleave', 'state-fills', function () {
 map.getCanvas().style.cursor = '';
 });
 });
-
 
 <% end %>
 <% end %>
