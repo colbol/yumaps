@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   end
 
     def update
-      @tag = Vote.find(params[:id])
+      @tag = Tag.find(params[:id])
       if params[:type] == "upvote"
         @vote.countdown = @vote.count + 1
       else
@@ -14,8 +14,8 @@ class TagsController < ApplicationController
         respond_to do |format|
           format.html { redirect_to vote_path(@vote) }
         format.js  # <-- will render `app/views/votes/update.js.erb`
-      end
-    else
+        end
+      else
       respond_to do |format|
         format.html { render 'votes/index' }
         format.js  # <-- idem
@@ -25,8 +25,7 @@ class TagsController < ApplicationController
 
 
   def create
-    @tag= Tag.new(tag_params)
-    raise
+    @tag = Tag.new(tag_params)
     @tag.save
   end
 

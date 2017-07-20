@@ -17,7 +17,7 @@ countries = Country.create([{ name: 'Monaco'}])
 countries = Country.create([{ name: 'Belarus'}])
 city_params =
 [
-  {name: 'Montreal' , longitude: 45.5017, latitude: 73.5673, zoom: 7,country_id: (Country.find_by name: 'Canada').id  },
+  {name: 'Montreal' , longitude: 45.546, latitude: -73.694, zoom: 10.3,country_id: (Country.find_by name: 'Canada').id  },
   {name: 'Toronto' , longitude: 43.6532, latitude: 79.3832, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
   {name: 'Calgary' , longitude: 51.0486, latitude: 114.0708, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
   {name: 'Winnipeg' , longitude: 49.8951, latitude: 97.1384, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
@@ -30,7 +30,7 @@ city_params =
 city_params.each do |params|
   city = City.create(params)
   district = District.create(name: 'districtA', city_id: city.id)
-  tag = Tag.create!(name: 'tagname', display: true, district_id: district.id)
+  tag = Tag.create(name: 'tagname', district_id: district.id)
   Vote.create(ip: '133.234.234.1', tag_id: tag.id)
 end
 
