@@ -55,9 +55,11 @@ ActiveRecord::Schema.define(version: 20170720183354) do
   create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.boolean  "display"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "district_id"
+    t.string   "content"
+    t.integer  "district_index"
     t.index ["district_id"], name: "index_tags_on_district_id", using: :btree
   end
 

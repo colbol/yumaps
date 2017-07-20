@@ -3,20 +3,16 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
-
-  def
-
-
-  def update
-    @vote = Vote.find(params[:id])
-    if params[:type] == "upvote"
-      @vote.countdown = @vote.count + 1
-    else
-      @vote.countdown = @vote.countdown - 1
-    end
-    if @vote.save
-      respond_to do |format|
-        format.html { redirect_to vote_path(@vote) }
+    def update
+      @tag = Vote.find(params[:id])
+      if params[:type] == "upvote"
+        @vote.countdown = @vote.count + 1
+      else
+        @vote.countdown = @vote.countdown - 1
+      end
+      if @vote.save
+        respond_to do |format|
+          format.html { redirect_to vote_path(@vote) }
         format.js  # <-- will render `app/views/votes/update.js.erb`
       end
     else
@@ -25,19 +21,20 @@ class TagsController < ApplicationController
         format.js  # <-- idem
       end
     end
- end
-
-
-
-  def show
-        @vote = Vote.find(params[:id])
   end
 
-    private
 
-  def vote_params
-    params.require(:vote).permit(:ip, :tag_id, :count)
+  def create
+    @tag= Tag.new(tag_params)
+    @tag.save
+  end
+
+  private
+
+  def tag_params
+    params.require(:tag).permit(:name, :district_index, :content)
   end
 
 end
+
 
