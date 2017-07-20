@@ -26,6 +26,7 @@ class TagsController < ApplicationController
 
   def create
     @tag= Tag.new(tag_params)
+    raise
     @tag.save
   end
 
