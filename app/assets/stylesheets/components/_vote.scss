@@ -1,0 +1,236 @@
+.post-overview{max-width: 900px; margin: 0 auto 100px; }
+
+$img_height: 120px;
+
+$timing: 0.2s;
+
+$upvote: 40px;
+
+body{
+  background:#1E1E1E;
+}
+.post{
+  position: relative;
+  padding: 0 10px 0 0px;
+  background: #181818;
+  border: 1px solid #2B2B2B;
+  margin: 30px;
+  height: $img_height - 10px;;
+  box-sizing: border-box;
+  .tf-post-item--rank{
+    display: inline-block;
+    color: #fff;
+    line-height:$img_height - 10px;;
+    vertical-align: middle;
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0 50px 0 45px;
+  }
+
+  .tf-post-item--img{
+    display: inline-block;
+    height:    $img_height - 10px;;
+    position: relative;
+    width: $img_height;
+    vertical-align: middle;
+  }
+
+  .tf-post-item--info{
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    padding: 0 20px;
+
+    h5{
+      font-size: 16px;
+      margin: 0 0 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    small{
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+  }
+  .tpf-play-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    img{
+    opacity: 0;
+    // position: absolute;
+    // top: 22px;
+    left: $img_height + 20px;
+    cursor: pointer;
+    border-radius: 33px;
+    padding-top: 13px;
+    padding-right: 11px;
+    padding-left: 15px;
+    padding-bottom: 13px;
+    border: 3px solid #FF0d55;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform: scale(0);
+      width: 18px;
+    }}
+  .tf-post-play{
+    position: relative;
+    top: -5px;
+    display: block;
+    width: $img_height;
+    height: $img_height;
+    background: #111;
+
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    .tf-thumbnail{
+      display: block;
+      margin: 0;
+      width: $img_height;
+      height: auto;
+    border-radius:2px;
+    }
+  }
+
+  .tf-post-item--votes {
+  position: absolute;
+  // margin-left: -28px;
+  left: 70px + $upvote / 2;
+  z-index: 10;
+    top: 28px;
+
+
+}
+  &:hover{
+    box-shadow: 0 0 24px rgba(0,0,0,0.1);
+  }
+  .tf-post-item--img:hover{
+    .tpf-play-button img{
+      opacity: 1;
+    transform: scale(1);
+    }
+
+    .tf-post-play{
+            transform: scale(1.06);
+    }
+    .tf-thumbnail{
+      opacity: 0.8;
+
+    }
+  }
+}
+
+
+.tf-post-item--votes {
+  border: 2px solid #ff0d55;
+  width: $upvote;
+  color: #fff;
+  background: #181818 url("http://trakfire.com/assets/img/votes-arrow.svg") no-repeat center 10px;
+  height: $upvote;
+  border-radius: $upvote + 10;
+  font-size: 11px;
+  line-height: $upvote;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all $timing;
+
+  span{
+    position: absolute;
+    top: ($upvote / 2) + 7;
+    left: 50%;
+    transition: all $timing;
+  }
+
+  .new-vote{
+    transform: translate(-50%,100%);
+    font-size: 14px;
+  }
+
+  .old-vote{
+    transform: translate(-50%,-50%);
+  }
+
+  &:hover{
+     background: #181818 url("http://trakfire.com/assets/img/votes-arrow.svg") no-repeat center 7px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+
+
+  &.voted{
+    background: #ff0d55 url("http://trakfire.com/assets/img/votes-arrow.svg") no-repeat center 7px;
+
+    .old-vote{
+      transform: translate(-50%,-150%);
+    }
+
+    .new-vote{
+    transform: translate(-50%,-50%);
+      top: 62%;
+    }
+  }
+//  &:before {
+//    content: "";
+//    position: absolute;
+//    z-index: -1;
+//    top: 100%;
+//    left: 0;
+//    right: 0;
+//    bottom: 0;
+//    background: #ff0d55;
+//     border-radius: 100%;
+//     transition: all 0.2s;
+
+//   }
+
+  &:hover{
+
+    // &:before {
+    // top: 0;
+    // border-radius: 0;
+    // }
+  }
+}
+
+.sandbox{
+  padding: 50px;
+  .tf-post-item--votes {
+  display: inline-block;
+  margin: 0 10px;}
+}
+
+.tf-player-wrap {
+  width: 100%;
+  height: 50px;
+  z-index: 1000;
+  background: #181818;
+  box-shadow: 0 -1px #2B2B2B;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 12px;
+  transform: rotateX(-45deg) translateY(150%);
+  perspective:400;
+  transition: transform $timing;
+
+  &.visible{
+    transform: rotateX(0)  translateY(0);
+  }
+
+  .container {
+    max-width: 900px; margin: 0 auto;
+  }
+
+  .tf-post-item--votes{
+    margin: -10px auto 0;
+  }
+
+}
+
+.disable-pointer-events {
+  pointer-events: none;
+}
