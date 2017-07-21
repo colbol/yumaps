@@ -52,7 +52,7 @@ city_params.each do |params|
   city = City.create(params)
   arr.each do |name|
     district = District.create(name: name, city_id: city.id)
-    tag = Tag.create!(name: 'tagname',  district_id: district.id)
+    tag = Tag.create!(name: Faker::Hipster.words, display: true, district_id: district.id)
     Vote.create(ip: '133.234.234.1', tag_id: tag.id)
   end
 end
