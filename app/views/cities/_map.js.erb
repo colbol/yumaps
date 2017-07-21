@@ -1,4 +1,8 @@
 <script>
+$( document ).ready(function() {
+  $('.city-info').hide();
+});
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ';
 var map = new mapboxgl.Map({
   container: 'map',
@@ -72,6 +76,9 @@ map.on('load', function () {
     // geo.features[0].properties.push({
     // toptag:"Champignon",
     // });
+    $('.city-info').show();
+
+
     var neighbor_name = e.features[0].properties.FEDENAME;
     $('#pop_up_name').html(neighbor_name);
 
