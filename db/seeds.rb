@@ -54,13 +54,15 @@ arr = [
 puts "Creating data.."
 city = City.create(city_params)
 arr.each do |name|
+  5.times do
   district = District.create(name: name, city_id: city.first.id)
-  20.times do
-    tag = Tag.create!(name: Faker::Hipster.words, district_id: district.id)
+  5.times do
+    tag = Tag.create!(content: Faker::Hipster.words(1)[0], district_id: district.id, name: district.name)
     rand(1..30).times do
       Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag.id)
     end
   end
+end
 end
 puts "Seed finished, data created!"
 
