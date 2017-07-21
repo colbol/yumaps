@@ -21,6 +21,7 @@ class CitiesController < ApplicationController
     redirect_to city_path
   end
 
+
   def show
     @city = City.find(params[:id])
     @tag = Tag.new

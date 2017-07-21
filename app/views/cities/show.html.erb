@@ -1,18 +1,48 @@
+<div class="city-container">
 
-<div class="map-div" id='map'></div>
 
-<div class='filter-ctrl'>
-  <input id='filter-input' type='text' name='filter' placeholder='Filter by name' />
-   <ul>
-   <%  @tags.each do |tag| %>
+  <<<<<<< HEAD
+  <div class='filter-ctrl'>
+    <input id='filter-input' type='text' name='filter' placeholder='Filter by name' />
+    <ul>
+     <%  @tags.each do |tag| %>
      <% raise %>
 
-       <% end %>
+     <% end %>
    </ul>
-</div>
+ </div>
 </div>
 
 <% content_for(:after_js) do %>
-  <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
+<%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
 <% end %>
 
+<div class="map-div" id='map'></div>
+
+<div class="city-search">
+  <input type="text" name='tag' class="city-search-input" placeholder='Search city' />
+</div>
+
+<div class="city-info">
+
+  <% content_for(:after_js) do %>
+  <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
+  <% end %>
+
+  <div class="city-tag-ranking">
+    <h3>This District</h3>
+    <ol>
+     <%  @tags.each do |tag| %>
+     <% raise %>
+
+     <% end %>
+   </ol>
+ </div>
+
+ <div class='city-enter-tag'>
+  <input type="text" name='tag' class="city-enter-tag-input" placeholder='Add your tag' />
+  <input type="submit" class="city-enter-tag-submit" value="Submit">
+</div>
+
+</div>
+</div>
