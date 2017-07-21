@@ -30,33 +30,33 @@ city_params =
 ]
 
 arr = [
-"Ahuntsic",
-"Saint-Laurent - Cartierville",
-"Saint-LÈonard - Saint-Michel",
-"HonorÈ-Mercier",
-"Bourassa",
-"La Pointe-de-l'Œle",
-"Hochelaga",
-"Papineau",
-"Rosemont - La Petite-Patrie",
-"Laurier - Sainte-Marie",
-"Outremont",
-"Westmount - Ville-Marie",
-"Mount Royal",
-"Notre-Dame-de-Gr‚ce - Lachine",
-"Jeanne-Le Ber",
-"LaSalle - …mard",
-"Pierrefonds - Dollard",
-"Lac-Saint-Louis",
+["Ahuntsic", 0],
+["Saint-Laurent - Cartierville", 1],
+["Saint-LÈonard - Saint-Michel", 2],
+["HonorÈ-Mercier", 3],
+["Bourassa", 4],
+["La Pointe-de-l'Œle", 5],
+["Hochelaga", 6],
+["Papineau", 7],
+["Rosemont - La Petite-Patrie", 8],
+["Laurier - Sainte-Marie", 9],
+["Outremont", 10],
+["Westmount - Ville-Marie", 11],
+["Mount Royal", 12],
+["Notre-Dame-de-Gr‚ce - Lachine", 13],
+["Jeanne-Le Ber", 14],
+["LaSalle - …mard", 15],
+["Pierrefonds - Dollard", 16],
+["Lac-Saint-Louis", 17]
 ]
 
 #city_params.each do |params|
 puts "Creating data.."
 city = City.create(city_params)
-arr.each do |name|
+arr.each do |name, index|
   district = District.create(name: name, city_id: city.first.id)
   20.times do
-    tag = Tag.create!(name: Faker::Hipster.words, district_id: district.id)
+    tag = Tag.create!(content: Faker::Hipster.words(1)[0], district_id: district.id, name: district.name, district_index: index)
     rand(1..30).times do
       Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag.id)
     end
