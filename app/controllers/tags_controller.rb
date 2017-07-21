@@ -33,7 +33,7 @@ class TagsController < ApplicationController
    end
    Vote.find_or_create_by({tag_id: @tag.id, ip: request.remote_ip})
    redirect_to cities_path
- end
+  end
 
 
   private
