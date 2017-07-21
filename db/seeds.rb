@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require "faker"
+
 Country.destroy_all
 City.destroy_all
 District.destroy_all
@@ -13,8 +15,8 @@ Vote.destroy_all
 
 
 countries = Country.create([{ name: 'Canada'}])
-countries = Country.create([{ name: 'Monaco'}])
-countries = Country.create([{ name: 'Belarus'}])
+# countries = Country.create([{ name: 'Monaco'}])
+# countries = Country.create([{ name: 'Belarus'}])
 city_params =
 [
   {name: 'Montreal' , longitude: 45.5017, latitude: 73.5673, zoom: 7,country_id: (Country.find_by name: 'Canada').id  },
@@ -48,14 +50,20 @@ arr = [
 "Lac-Saint-Louis",
 ]
 
-city_params.each do |params|
-  city = City.create(params)
-  arr.each do |name|
-    district = District.create(name: name, city_id: city.id)
-    tag = Tag.create!(name: Faker::Hipster.words, display: true, district_id: district.id)
-    Vote.create(ip: '133.234.234.1', tag_id: tag.id)
+#city_params.each do |params|
+puts "Creating data.."
+city = City.create(city_params)
+arr.each do |name|
+  district = District.create(name: name, city_id: city.first.id)
+  20.times do
+    tag = Tag.create!(name: Faker::Hipster.words, district_id: district.id)
+    rand(1..30).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag.id)
+    end
   end
 end
+puts "Seed finished, data created!"
+
 
 
 
