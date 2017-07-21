@@ -14,15 +14,6 @@ class CitiesController < ApplicationController
   end
 
   def update
-<<<<<<< HEAD
-    @city = City.find(params[:id])
-
-    @city.update_attributes(city_params)
-    redirect_to city_show_path(current_city.id)  # cities_path
-  end
-
-
-=======
 
     @city = City.find(params[:id])
 
@@ -30,7 +21,7 @@ class CitiesController < ApplicationController
     redirect_to city_path
   end
 
->>>>>>> 76891cd3ef3ca6fdc5e86488dcaf598ae668c3eb
+
   def show
     @city = City.find(params[:id])
     @tag = Tag.new
