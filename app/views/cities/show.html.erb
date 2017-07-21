@@ -20,7 +20,9 @@
     <% end %>
 
     <div class="city-tag-ranking">
-      <h3>This District</h3>
+      <h3 id="pop_up_name"><%= @name %></h3>
+
+      
       <% result = [] %>
       <% @tags.each do |tag| %>
       <% result << {tag: tag.content, count: tag.votes.count} %>
