@@ -1,6 +1,12 @@
 <div class="city-container">
 
 
+
+
+  <% content_for(:after_js) do %>
+  <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
+  <% end %>
+
   <div class="map-div" id='map'></div>
 
   <div class="city-search">
@@ -10,37 +16,29 @@
   <div class="city-info">
 
     <% content_for(:after_js) do %>
-      <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
+    <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
     <% end %>
 
     <div class="city-tag-ranking">
       <h3>This District</h3>
+      <% result = [] %>
+      <% @tags.each do |tag| %>
+      <% result << {tag: tag.content, count: tag.votes.count} %>
+      <% end  %>
+
+      <% result.sort_by!{|elem| -elem[:count]} %>
+
       <ol>
-        <li>Habs</li>
-        <li>Bagels</li>
-        <li>Poutine</li>
-        <li>yutian</li>
-        <li>the onion</li>
-        <li>potato</li>
-        <li>yutian again</li>
-        <li>bridge</li>
-        <li>sauce</li>
-        <li>botanical gardeb</li>
-        <li>smells</li>
-        <li>opa</li>
-        <li>omma</li>
-        <li>hello</li>
-        <li>yutian2</li>
-        <li>yutian3</li>
-        <li>plants</li>
-        <li>salim</li>
-      </ol>
-    </div>
+        <% result.first(20).each do |value| %>
+          <li><%=  value[:tag] + " " + value[:count].to_s  %></li>
+<% end  %>
+      <ol>
+ </div>
 
-    <div class='city-enter-tag'>
-      <input type="text" name='tag' class="city-enter-tag-input" placeholder='Add your tag' />
-      <input type="submit" class="city-enter-tag-submit" value="Submit">
-    </div>
+ <div class='city-enter-tag'>
+  <input type="text" name='tag' class="city-enter-tag-input" placeholder='Add your tag' />
+  <input type="submit" class="city-enter-tag-submit" value="Submit">
+</div>
 
-  </div>
+</div>
 </div>

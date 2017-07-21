@@ -5,7 +5,6 @@ class VotesController < ApplicationController
 
   def new
     @vote = Vote.new
-
   end
 
   def update
