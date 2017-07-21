@@ -4,10 +4,8 @@ class DistrictsController < ApplicationController
   end
 
   def create
-   @district = Districe.new(district_params)
+   @district = District.new(district_params)
   end
-
-
 
   private
 
