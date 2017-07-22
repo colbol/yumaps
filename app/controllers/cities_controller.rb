@@ -28,6 +28,11 @@ class CitiesController < ApplicationController
     @tags = Tag.all
   end
 
+  def fetch_name
+    name = params[:name]
+    @name = name
+  end
+
   private
 
   def city_params

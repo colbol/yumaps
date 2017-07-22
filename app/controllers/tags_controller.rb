@@ -25,9 +25,16 @@ class TagsController < ApplicationController
 
 
   def create
-    @tag = Tag.new(tag_params)
-    @tag.save
+    @tag = Tag.find_by({content: params[:tag][:content], district_index: params[:tag][:district_index]})
+    if @tag.nil?
+     @tag = Tag.new(tag_params)
+     @tag.district = District.find_by(name: params[:tag][:name])
+     @tag.save
+   end
+   Vote.find_or_create_by({tag_id: @tag.id, ip: request.remote_ip})
+   redirect_to cities_path
   end
+
 
   private
 

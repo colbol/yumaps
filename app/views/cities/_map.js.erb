@@ -1,4 +1,8 @@
 <script>
+$( document ).ready(function() {
+  $('.city-info').hide();
+});
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ';
 var map = new mapboxgl.Map({
   container: 'map',
@@ -10,10 +14,7 @@ zoom: 10.3 // starting zoom
 
 // map.scrollZoom.disable();
 var arr = []
-var neighbor_name = geo.features;
- for (let s of neighbor_name) {
-   arr.push(s.properties.FEDENAME)
-}
+
 console.log(arr)
 
 map.on('load', function () {
@@ -65,6 +66,9 @@ map.on('load', function () {
       "text-field": "{FEDENAME}",
       "text-size": 11,
     }
+    // "paint": {
+    //   "text-color": "white",
+    // },
 
   });
 
@@ -72,20 +76,37 @@ map.on('load', function () {
     // geo.features[0].properties.push({
     // toptag:"Champignon",
     // });
-    console.log(geo);
-    console.log(e);
+    $('.city-info').show();
+
+
+    var neighbor_name = e.features[0].properties.FEDENAME;
+    $('#pop_up_name').html(neighbor_name);
+
+    // $.ajax({
+    //   url: "<%= @city.id %>/fetch_name",
+    //   type: "post",
+    //   data: {name: e.features[0].properties.FEDENAME},
+    //   success: function(){
+    //     alert('Saved Successfully');
+    //   },
+    //   error:function(){
+    //    alert('Error');
+    //   }
+    // });
+
     var centro = turf.centroid(e.features[0]);
-    new mapboxgl.Popup()
-    .setLngLat(centro.geometry.coordinates)
-    .setHTML('<%= simple_form_for @tag do |f| %> \
-        <%= f.input :content %> \
-        <%= f.input :name, as: :hidden, input_html: {id: 'district'} %> \
-        <%= f.input :district_index, as: :hidden, input_html: {id: 'district_index'} %> \
-        <%= f.submit 'Submit', input_html: {id: "submit-btn"} %> \
-        <% end %>')
-    .addTo(map);
+    // new mapboxgl.Popup()
+    // .setLngLat(centro.geometry.coordinates)
+    // .setHTML('<%= simple_form_for @tag do |f| %> \
+    //     <%= f.input :content %> \
+    //     <%= f.input :name, as: :hidden, input_html: {id: 'district'} %> \
+    //     <%= f.input :district_index, as: :hidden, input_html: {id: 'district_index'} %> \
+    //     <%= f.submit 'Submit', input_html: {id: "submit-btn"} %> \
+    //     <% end %>')
+    // .addTo(map);
     $('#district').val(e.features[0].properties.FEDENAME);
     $('#district_index').val(arr.indexOf(e.features[0].properties.FEDENAME));
+    $('#pop_up_name').val(e.features[0].properties.FEDENAME);
     // console.log(e.features[0].properties.FEDENAME);
     // console.log(centro.geometry.coordinates);
     });
@@ -100,4 +121,8 @@ map.on('mouseleave', 'state-fills', function () {
   map.getCanvas().style.cursor = '';
 });
 });
+
+
+
 </script>
+
