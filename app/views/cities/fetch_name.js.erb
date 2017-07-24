@@ -1,1 +1,69 @@
 $('#tags_list').html("<%= j render 'tags_list', top:@top, name: @name %>");
+
+map.on('load', function () {
+
+  map.addSource("district", {
+    "type": "geojson",
+    "data": "https://cdn.rawgit.com/colbol/yumaps/2605c6d5ba903bb8da3fc9bb3b6a56386d60ddbe/montreal.geojson"
+  });
+
+  map.addLayer({
+    "id": "state-fills",
+    "type": "fill",
+    "source": "district",
+    "layout": {},
+    "paint": {
+      "fill-color": "#627BC1",
+      "fill-opacity": 0.2
+    }
+  });
+
+  map.addLayer({
+    "id": "state-borders",
+    "type": "line",
+    "source": "district",
+    "layout": {},
+    "paint": {
+      "line-color": "#fff",
+      "line-width": 1
+    }
+  });
+
+  map.addLayer({
+    "id": "state-fills-hover",
+    "type": "fill",
+    "source": "district",
+    "layout": {},
+    "paint": {
+      "fill-color": "#627BC1",
+      "fill-opacity": 1
+    },
+    "filter": ["==", "name", ""]
+  });
+
+  map.addLayer({
+    "id": "neighbor",
+    "type": "symbol",
+    "source": "district",
+    "layout": {
+      "text-field": "{FEDENAME}",
+      "text-size": 11,
+    }
+    // "paint": {
+    //   "text-color": "white",
+    // },
+
+  });
+
+  map.addLayer({
+      "id": "filter-fills",
+      "type": "fill",
+      "source": "district",
+      "layout": {},
+      "paint": {
+        "fill-color": "#fff",
+        "fill-opacity": 1
+      },
+      "filter": ["==", "name", ""]
+    });
+  });

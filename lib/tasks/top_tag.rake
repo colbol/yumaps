@@ -1,11 +1,12 @@
 require 'json'
+require 'open-uri'
 
 desc "Top Tag"
 task :top_tag => [:environment]  do
-  filepath =  "https://cdn.rawgit.com/colbol/yumaps/2605c6d5ba903bb8da3fc9bb3b6a56386d60ddbe/montreal.geojson"
+  filepath = "https://cdn.rawgit.com/colbol/yumaps/2605c6d5ba903bb8da3fc9bb3b6a56386d60ddbe/montreal.geojson"
 
-  file = File.read(filepath)
-  hash = JSON.parse(file)
+  file = open(filepath)
+  hash = JSON.parse(file.first)
   @tags = Tag.all
   @votes = Vote.all
   hash['features'].each do |details|
@@ -35,16 +36,15 @@ task :top_tag => [:environment]  do
       top.first(20)
     end
 
-    #if details['properties']['tag'] != largest_hash_key(data)[0]
+    # if details['properties']['tag'] != largest_hash_key(data)[0]
 
 
-    #details['properties']['tag'] = largest_hash_key(data)[0]
-
-  end
+    # details['properties']['tag'] = largest_hash_key(data)[0]
 
   File.open(filepath, 'w') do |f|
     f.write(hash.to_json)
   end
+end
 end
 
 
