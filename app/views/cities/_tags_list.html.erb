@@ -1,8 +1,61 @@
-<h3><%= name %></h3>
-<ul>
-<% top.each do |tag| %>
-  <li><%= tag[:name] %></li>
-<% end %>
-</ul>
+
+<div class="city-tag-title"><h3><%= name %></h3></div>
+<div class="line"></div>
+<div class="scroll">
+  <ol>
+  <div class="city-tag-ranking">
+    <% top.each do |tag| %>
+      <div class="tag-list-container">
+        <li>
+          <%= tag[:name] %>
+          <span class="badgey"><%= tag[:votes] %></span>
+        </li>
+      </div>
+    <% end %>
+  </div>
+  </ol>
+</div>
+
+<style>
+.line {
+  border-bottom: 1px solid #ccc;
+}
+.scroll {
+  max-height: 400px;
+  overflow:scroll;
+}
+.city-tag-title {
+  padding: 10px;
+  height: 120px;
+  font-size: 16px;
+  /*font-size: 20vw;*/
+}
+.city-tag-ranking {
+  padding: 10px;
+  max-height: 50%;
+}
+.tag-list-container {
+  position: relative;
+  color: grey;
+  display: flex;
+}
+.badgey {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+  font-size: 10px;
+  color: white;
+  border-radius: 2%;
+  background: #6495ED;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+</style>
+
+
 
 
