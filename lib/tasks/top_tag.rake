@@ -2,16 +2,15 @@ require 'json'
 
 desc "Top Tag"
 task :top_tag => [:environment]  do
-  filepath =  "#{Rails.root}/db/montreal.geojson"
+  filepath =  "https://cdn.rawgit.com/colbol/yumaps/2605c6d5ba903bb8da3fc9bb3b6a56386d60ddbe/montreal.geojson"
 
   file = File.read(filepath)
   hash = JSON.parse(file)
   @tags = Tag.all
   @votes = Vote.all
-  #hash['features'].each do |details|
+  hash['features'].each do |details|
     # find district
-    # district = details['properties']['FEDENAME']
-    district = "Ahuntsic"
+    district = details['properties']['FEDENAME']
 
     # store all the tags in array -- district_tag
     district_tag = []
@@ -36,18 +35,19 @@ task :top_tag => [:environment]  do
       top.first(20)
     end
 
+    #if details['properties']['tag'] != largest_hash_key(data)[0]
 
 
+    #details['properties']['tag'] = largest_hash_key(data)[0]
 
+  end
 
-
-    #details['properties']['tag'] = "top_tag"
-  #end
+  File.open(filepath, 'w') do |f|
+    f.write(hash.to_json)
+  end
 end
 
-  # File.open(filepath, 'w') do |f|
-  #   f.write(hash.to_json)
-  # end
+
 
 
 
