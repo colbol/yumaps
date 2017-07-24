@@ -1,10 +1,5 @@
 <script>
 
-$( document ).ready(function() {
-  $('.info-container').hide();
-});
-
-
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ';
 var map = new mapboxgl.Map({
   container: 'map',
@@ -16,11 +11,13 @@ zoom: 10.3 // starting zoom
 
 // map.scrollZoom.disable();
 
+var filepath = '<%= "#{Rails.root}/app/assets/javascripts/montreal.geojson" %>';
+
 map.on('load', function () {
 
   map.addSource("district", {
     "type": "geojson",
-    "data": geo
+    "data": filepath
   });
 
   map.addLayer({
