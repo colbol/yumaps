@@ -7,6 +7,11 @@ class VotesController < ApplicationController
     @vote = Vote.new
   end
 
+  def create
+    @vote = Vote.new(vote_params)
+    @vote.save!
+  end
+
   def update
     @vote = Vote.find(params[:id])
     if params[:type] == "upvote"
