@@ -7,7 +7,6 @@ class CitiesController < ApplicationController
     @tag = Tag.new
   end
 
-
   def new
     @city = City.new
   end
@@ -20,10 +19,8 @@ class CitiesController < ApplicationController
   def update
     @city = City.find(params[:id])
 
-    @ciy.update_attributes(user_params)
-    redirect_to city_path
+    @ciy.update_attributes(city_params)
   end
-
 
   def show
     @city = City.find(params[:id])
@@ -49,17 +46,18 @@ class CitiesController < ApplicationController
 
   def fetch_name
     @name = params[:name]
+    @district_index = params[:district_index]
     @tags = Tag.all
+    @tag = Tag.new
 
     @district_tag = []
     @top = []
-    tag_vote = []
 
     @tags.each do |tags|
        @district_tag.push(tags) if tags['name'] == @name
     end
     # check if really most popular 20 tags
-    @district_tag.sort { |a, b| a.votes.count <=> b.votes.count }.first(20).each do |tag|
+    @district_tag.sort { |a, b| a.votes.count <=> b.votes.count }.last(20).each do |tag|
       data = {}
       data[:name] = tag.content
       data[:votes] = tag.votes.count
@@ -74,8 +72,4 @@ class CitiesController < ApplicationController
       params.require(:city).permit(:name, :longitude, :latitude, :zoom, :country_id)
   end
 
-
-   def tag _params
-      params.require(:city).permit(:name, :longitude, :latitude, :zoom, :country_id)
-  end
 end

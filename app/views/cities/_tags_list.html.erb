@@ -16,6 +16,26 @@
   </ol>
 </div>
 
+<div class='city-enter-tag'>
+      <%= simple_form_for tag, action: :create, method: :post, remote: true do |f| %>
+      <%= f.error_notification %>
+      <div class="city-enter-tag-input">
+        <%= f.input :content, autofocus: true, placeholder: 'Add your tag', label: false, error: "You must enter a tag", hint: "Click on the neighbourhood you want to tag" %>
+        <%= f.hidden_field :name, value: name %>
+        <%= f.hidden_field :district_index, value: district_index %>
+        <%= f.hidden_field :district_id, value: District.find_by(name: name).id %>
+      </div>
+      <div class="form-actions">
+        <a><%= f.button :submit, "Submit" %></a>
+      </div>
+      <% end %>
+  </div>
+
+
+
+
+
+
 <style>
 .line {
   border-bottom: 1px solid #ccc;
@@ -26,7 +46,7 @@
 }
 .city-tag-title {
   padding: 10px;
-  height: 120px;
+  /*height: 120px;*/
   font-size: 16px;
   /*font-size: 20vw;*/
 }
@@ -48,7 +68,7 @@
   font-size: 10px;
   color: white;
   border-radius: 2%;
-  background: #6495ED;
+  background: #48D1CC;
   justify-content: center;
   display: flex;
   align-items: center;

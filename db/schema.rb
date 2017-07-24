@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 20170720194516) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name"            #district name
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "district_id"
-    t.string   "content"
+    t.string   "content"         #tag name
     t.integer  "district_index"
     t.index ["district_id"], name: "index_tags_on_district_id", using: :btree
   end
