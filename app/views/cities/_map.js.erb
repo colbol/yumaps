@@ -4,6 +4,11 @@ $( document ).ready(function() {
   $('.info-container').hide();
 });
 
+arr = []
+
+for (let s of geo.features) {
+   arr.push(s.properties.FEDENAME)
+}
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ';
 var map = new mapboxgl.Map({
@@ -76,7 +81,7 @@ map.on('load', function () {
     $.ajax({
       url: "<%= @city.id %>/fetch_name",
       type: "post",
-      data: {name: e.features[0].properties.FEDENAME},
+      data: {name: e.features[0].properties.FEDENAME, district_index: arr.indexOf(e.features[0].properties.FEDENAME)},
       success: function(){
         //alert('Saved Successfully');
       },
