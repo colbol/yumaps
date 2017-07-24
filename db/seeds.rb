@@ -56,7 +56,7 @@ city = City.create(city_params)
 
 arr.each do |name|
   5.times do
-  district = District.create(name: name, city_id: city.first.id)
+  district = District.create(name: name[0], city_id: city.first.id)
   5.times do
     tag = Tag.create!(content: Faker::Hipster.words(1)[0], district_id: district.id, name: district.name)
 
