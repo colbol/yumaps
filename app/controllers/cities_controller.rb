@@ -1,6 +1,7 @@
 require 'gon'
 
 class CitiesController < ApplicationController
+
   def index
     @cities = City.all
     @tag = Tag.new
@@ -40,7 +41,7 @@ class CitiesController < ApplicationController
       @data[tag.content] = tag.votes.count
     end
     @top = @data.sort_by { |content, votes| - votes }
-    gon.hello = "hello"
+    gon.tags = @tags
   end
 
   def fetch_name
