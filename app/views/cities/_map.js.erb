@@ -1,7 +1,9 @@
 <script>
+
 $( document ).ready(function() {
-  $('.city-info').hide();
+  $('.info-container').hide();
 });
+
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ';
 var map = new mapboxgl.Map({
@@ -13,13 +15,10 @@ zoom: 10.3 // starting zoom
 });
 
 // map.scrollZoom.disable();
-var arr = []
-
-console.log(arr)
 
 map.on('load', function () {
 
-  map.addSource("states", {
+  map.addSource("district", {
     "type": "geojson",
     "data": geo
   });
@@ -27,7 +26,7 @@ map.on('load', function () {
   map.addLayer({
     "id": "state-fills",
     "type": "fill",
-    "source": "states",
+    "source": "district",
     "layout": {},
     "paint": {
       "fill-color": "#627BC1",
@@ -38,7 +37,7 @@ map.on('load', function () {
   map.addLayer({
     "id": "state-borders",
     "type": "line",
-    "source": "states",
+    "source": "district",
     "layout": {},
     "paint": {
       "line-color": "#fff",
@@ -49,7 +48,7 @@ map.on('load', function () {
   map.addLayer({
     "id": "state-fills-hover",
     "type": "fill",
-    "source": "states",
+    "source": "district",
     "layout": {},
     "paint": {
       "fill-color": "#627BC1",
@@ -61,7 +60,7 @@ map.on('load', function () {
   map.addLayer({
     "id": "neighbor",
     "type": "symbol",
-    "source": "states",
+    "source": "district",
     "layout": {
       "text-field": "{FEDENAME}",
       "text-size": 11,
@@ -73,28 +72,30 @@ map.on('load', function () {
   });
 
   map.on('click', 'state-fills', function (e) {
-    // geo.features[0].properties.push({
-    // toptag:"Champignon",
-    // });
-    $('.city-info').show();
+
+    $.ajax({
+      url: "<%= @city.id %>/fetch_name",
+      type: "post",
+      data: {name: e.features[0].properties.FEDENAME},
+      success: function(){
+        //alert('Saved Successfully');
+      },
+      error:function(){
+       //alert('Error');
+      }
+    });
+
+    console.log($('.temp_information').data('temp'))
+
+    $('.info-container').show();
 
 
     var neighbor_name = e.features[0].properties.FEDENAME;
     $('#pop_up_name').html(neighbor_name);
 
-    // $.ajax({
-    //   url: "<%= @city.id %>/fetch_name",
-    //   type: "post",
-    //   data: {name: e.features[0].properties.FEDENAME},
-    //   success: function(){
-    //     alert('Saved Successfully');
-    //   },
-    //   error:function(){
-    //    alert('Error');
-    //   }
-    // });
 
-    var centro = turf.centroid(e.features[0]);
+
+    // var centro = turf.centroid(e.features[0]);
     // new mapboxgl.Popup()
     // .setLngLat(centro.geometry.coordinates)
     // .setHTML('<%= simple_form_for @tag do |f| %> \
@@ -104,12 +105,12 @@ map.on('load', function () {
     //     <%= f.submit 'Submit', input_html: {id: "submit-btn"} %> \
     //     <% end %>')
     // .addTo(map);
-    $('#district').val(e.features[0].properties.FEDENAME);
-    $('#district_index').val(arr.indexOf(e.features[0].properties.FEDENAME));
-    $('#pop_up_name').val(e.features[0].properties.FEDENAME);
+    // $('#district').val(e.features[0].properties.FEDENAME);
+    // $('#district_index').val(arr.indexOf(e.features[0].properties.FEDENAME));
+    // $('#pop_up_name').val(e.features[0].properties.FEDENAME);
     // console.log(e.features[0].properties.FEDENAME);
     // console.log(centro.geometry.coordinates);
-    });
+  });
 
 // Change the cursor to a pointer when the mouse is over the places layer.
 map.on('mouseenter', 'state-fills', function () {
@@ -125,4 +126,3 @@ map.on('mouseleave', 'state-fills', function () {
 
 
 </script>
-

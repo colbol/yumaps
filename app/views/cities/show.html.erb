@@ -1,46 +1,17 @@
-<div class="city-container">
 
 
 
+<div id='map'></div>
+<div class='filter-ctrl'>
+    <input id='filter-input' type='text' name='filter' placeholder='Filter by name' />
+</div>
 
-  <% content_for(:after_js) do %>
+<!-- <div class="info-container" data-url="<%= cities_url %>"> -->
+<%= content_tag :div, class: "info-container", id: "tags_list", data: {temp: @hello} do %>
+<% end %>
+
+
+
+<% content_for(:after_js) do %>
   <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
-  <% end %>
-
-  <div class="map-div" id='map'></div>
-
-  <div class="city-search">
-    <input type="text" name='tag' class="city-search-input" placeholder='Search city' />
-  </div>
-
-  <div class="city-info">
-
-    <% content_for(:after_js) do %>
-    <%= render(:partial => 'map', :handlers => [:erb], :formats => [:js]) %>
-    <% end %>
-
-    <div class="city-tag-ranking">
-      <h3 id="pop_up_name"><%= @name %></h3>
-
-      
-      <% result = [] %>
-      <% @tags.each do |tag| %>
-      <% result << {tag: tag.content, count: tag.votes.count} %>
-      <% end  %>
-
-      <% result.sort_by!{|elem| -elem[:count]} %>
-
-      <ol>
-        <% result.first(20).each do |value| %>
-          <li><%=  value[:tag] + " " + value[:count].to_s  %></li>
-<% end  %>
-      <ol>
- </div>
-
- <div class='city-enter-tag'>
-  <input type="text" name='tag' class="city-enter-tag-input" placeholder='Add your tag' />
-  <input type="submit" class="city-enter-tag-submit" value="Submit">
-</div>
-
-</div>
-</div>
+<% end %>
