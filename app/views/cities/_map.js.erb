@@ -37,6 +37,16 @@ map.on('load', function () {
     "data": gon.json
   });
 
+
+// loadshp({
+//     url: 'montrealShape.zip',
+//     encoding: 'utf-8',
+//     EPSG: 4326
+// }, function(data) {
+//     vector.addData(data);
+//     map.fitBounds(vector.getBounds());
+// });
+
   map.addLayer({
     "id": "state-fills",
     "type": "fill",
@@ -102,6 +112,8 @@ map.on('load', function () {
   filterInput.addEventListener('keyup', function(e) {
         // If the input value matches a layerID set
         // it's visibility to 'visible' or else hide it.
+        // map.removeLayer(grayscale)
+        // map.removeLayer("fills-" + place)
         var value = e.target.value.trim().toLowerCase();
         var places = []
         gon.tags.forEach(function(tag) {
@@ -133,12 +145,12 @@ map.on('load', function () {
       url: "<%= @city.id %>/fetch_name",
       type: "post",
       data: {name: e.features[0].properties.FEDENAME, district_index: arr.indexOf(e.features[0].properties.FEDENAME)},
-      success: function(){
-        //alert('Saved Successfully');
-      },
-      error:function(){
-       //alert('Error');
-      }
+      // success: function(){
+      //   alert('Saved Successfully');
+      // },
+      // error:function(){
+      //  alert('Error');
+      // }
     });
 
     console.log($('.temp_information').data('temp'))

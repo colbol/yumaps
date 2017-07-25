@@ -31,7 +31,7 @@ class CitiesController < ApplicationController
     @votes = Vote.all
     @districts = District.all
 
-    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/montreal.geojson"
+    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
 
     file = open(filepath)
     gon.json = JSON.parse(file.first)
