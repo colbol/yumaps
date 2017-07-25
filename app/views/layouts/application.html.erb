@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= favicon_link_tag %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -9,7 +10,7 @@
     <script src="https://unpkg.com/@turf/turf@3.5.2/turf.min.js"></script>
 
 
-    <title>TODO</title>
+    <title>yutags--tag your city</title>
     <%= include_gon(:init => true) %>
     <%= Gon::Base.render_data({}) %>
     <%= csrf_meta_tags %>
