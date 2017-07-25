@@ -1,4 +1,6 @@
 require 'gon'
+require 'open-uri'
+require 'json'
 
 class CitiesController < ApplicationController
 
@@ -27,21 +29,17 @@ class CitiesController < ApplicationController
     @tag = Tag.new
     @tags = Tag.all
     @votes = Vote.all
-    @name = fetch_name
+    @districts = District.all
 
-    @district_tag = []
-    @data = {}
-    tag_vote = []
+    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/montreal.geojson"
 
-    @tags.each do |tags|
-       @district_tag.push(tags) if tags['name'] == @name
-    end
+    file = open(filepath)
+    gon.json = JSON.parse(file.first)
 
-    @district_tag.each do |tag|
-      @data[tag.content] = tag.votes.count
-    end
-    @top = @data.sort_by { |content, votes| - votes }
+
+
     gon.tags = @tags
+
   end
 
   def fetch_name
