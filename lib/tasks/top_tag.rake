@@ -1,11 +1,9 @@
-require 'aws-sdk-v1'
 require 'json'
 require 'open-uri'
 
-
 desc "Top Tag"
 task :top_tag => [:environment]  do
-    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/montreal.geojson"
+    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
 
     file = open(filepath)
     hash = JSON.parse(file.first)
@@ -20,6 +18,7 @@ task :top_tag => [:environment]  do
       district_tag = []
       data = {}
       tag_vote = []
+
       @tags.each do |tags|
         district_tag.push(tags) if tags['name'] == district
       end
@@ -41,31 +40,15 @@ task :top_tag => [:environment]  do
 
       if details['properties']['tag'] != largest_hash_key(data)[0]
         details['properties']['tag'] = largest_hash_key(data)[0]
-
-        p "have changed #{details['properties']['tag']} for #{largest_hash_key(data)[0]}"
-
       end
 
-    end
-
-    File.open(file, 'w') do |f|
-        f.write(hash.to_json)
-    end
-
-    s3 = AWS::S3.new(
-        :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-        :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
-
-        bucket = s3.buckets['yumaps']
-        obj = bucket.objects['montreal.geojson']
-
-        # streaming upload a file to S3
-        obj.write(file)
 
 
+      uploader = FileUploader.new
+      File.open(file, 'w+') do |f|
+          f.write(hash.to_json)
+          uploader.store!(f)
+      end
+
+  end
 end
-
-
-
-
-
