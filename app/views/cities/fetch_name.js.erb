@@ -1,6 +1,15 @@
 $('#tags_list').html("<%= j render 'cities/tags_list', top: @top, name: @name, district_index: @district_index, tag: @tag %>");
 <% if @from_create_tag %>
-  $("#result").html('<div class="alert alert-success"><button type="button" class="close">×</button>Tag successfully submited!</div>');
+  $("#result").html('<div class="alert alert-success"><button type="button" class="close">×</button>Tag submited!</div>');
+  window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 5000);
+<% end %>
+//just has different message
+<% if @from_create_vote %>
+  $("#result").html('<div class="alert alert-success"><button type="button" class="close">×</button>Tag exists. Vote submited!</div>');
   window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){
             $(this).remove();
