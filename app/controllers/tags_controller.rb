@@ -7,8 +7,11 @@ class TagsController < ApplicationController
     @tag = Tag.find_by({content: params[:tag][:content], district_index: params[:tag][:district_index]})
     # if the tag doesn't exist, create it for the district
     if @tag.nil?
-     @tag = Tag.new(tag_params)
-     @tag.save
+      @tag = Tag.new(tag_params)
+      @tag.save
+      @from_create_tag = true
+    else
+      @from_create_vote = true
     end
 
     Vote.find_or_create_by({tag_id: @tag.id, ip: request.remote_ip})
@@ -32,7 +35,6 @@ class TagsController < ApplicationController
       @top << data
     end
     @top = @top.reverse
-    @from_create_tag = true
     render 'cities/fetch_name', format: :js
   end
 
