@@ -68,6 +68,7 @@ map.on('load', function () {
   });
 
   map.addLayer({
+
     "id": "neighbor",
     "type": "symbol",
     "source": "district",
@@ -136,12 +137,7 @@ map.on('load', function () {
       url: "<%= @city.id %>/fetch_name",
       type: "post",
       data: {name: e.features[0].properties.FEDENAME, district_index: arr.indexOf(e.features[0].properties.FEDENAME)},
-      // success: function(){
-      //   alert('Saved Successfully');
-      // },
-      // error:function(){
-      //  alert('Error');
-      // }
+
     });
 
     console.log($('.temp_information').data('temp'))
@@ -151,6 +147,9 @@ map.on('load', function () {
 
     var neighbor_name = e.features[0].properties.FEDENAME;
     $('#pop_up_name').html(neighbor_name);
+
+                  preventDefault();
+
 
   });
 
