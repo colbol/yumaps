@@ -1,0 +1,36 @@
+.line {
+  border-bottom: 1px solid #ccc;
+}
+.scroll {
+  max-height: 400px;
+  overflow:scroll;
+}
+.city-tag-title {
+  padding: 10px;
+  /*height: 120px;*/
+  font-size: 16px;
+  /*font-size: 20vw;*/
+}
+.city-tag-ranking {
+  padding: 10px;
+  max-height: 50%;
+}
+.tag-list-container {
+  position: relative;
+  color: grey;
+  display: flex;
+}
+.badgey {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+  font-size: 10px;
+  color: white;
+  border-radius: 2%;
+  background: #48D1CC;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}

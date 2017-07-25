@@ -64,7 +64,3 @@ arr.each do |name|
   end
 end
 puts "Seed finished, data created!"
-
-
-
-
