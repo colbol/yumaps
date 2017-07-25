@@ -57,7 +57,7 @@ city = City.create(city_params)
 arr.each do |name|
   district = District.create(name: name[0], city_id: city.first.id)
   40.times do
-    tag = Tag.create!(content: Faker::Hipster.words(1)[0], district_id: district.id, name: district.name)
+    tag = Tag.create!(content: Faker::Hipster.words(1)[0], district_id: district.id, name: district.name, district_index: name[1])
     rand(1..30).times do
       Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag.id)
     end
