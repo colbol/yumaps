@@ -25,21 +25,24 @@ class CitiesController < ApplicationController
   end
 
   def show
+    # Not sure where we use this
     @city = City.find(params[:id])
-    @tag = Tag.new
-    @tags = Tag.all
-    @votes = Vote.all
-    @districts = District.all
 
+    # Don't think we need it
+      # @tag = Tag.new
+      # @votes = Vote.all
+      # @districts = District.all
+
+    # Opens the file from amazon server which we use in the map partial with the addsource
     filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
-
     file = open(filepath)
     gon.json = JSON.parse(file.first)
 
-
-
+    #Sends the tags to the map partial for the filter feature
+    @tags = Tag.all
     gon.tags = @tags
-
+    @district = District.all
+    gon.district = @district
   end
 
   def fetch_name

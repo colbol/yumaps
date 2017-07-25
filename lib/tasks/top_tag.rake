@@ -1,7 +1,6 @@
 require 'json'
 require 'open-uri'
 
-
 desc "Top Tag"
 task :top_tag => [:environment]  do
     filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
@@ -19,6 +18,7 @@ task :top_tag => [:environment]  do
       district_tag = []
       data = {}
       tag_vote = []
+
       @tags.each do |tags|
         district_tag.push(tags) if tags['name'] == district
       end
@@ -38,15 +38,10 @@ task :top_tag => [:environment]  do
         top.first(20)
       end
 
-      # puts "#{details['properties']['tag']} for: #{details['properties']['FEDENAME']}"
-      # puts "Largest tag: #{largest_hash_key(data)[0]}"
-      # puts "------------------------------------------"
-
-
       if details['properties']['tag'] != largest_hash_key(data)[0]
-        puts "have changed: #{details['properties']['tag']} for: #{largest_hash_key(data)[0]}"
         details['properties']['tag'] = largest_hash_key(data)[0]
       end
+
 
 
       uploader = FileUploader.new
@@ -56,13 +51,4 @@ task :top_tag => [:environment]  do
       end
 
   end
-  puts "....."
-  puts "Uploaded!"
 end
-
-
-
-
-
-
-
