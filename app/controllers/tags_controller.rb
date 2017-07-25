@@ -8,15 +8,15 @@ class TagsController < ApplicationController
     # if the tag doesn't exist, create it for the district
     if @tag.nil?
      @tag = Tag.new(tag_params)
-
      @tag.save
     end
+
     Vote.find_or_create_by({tag_id: @tag.id, ip: request.remote_ip})
-   # redirect_to cities_path
-   @tag = Tag.new
-   @district_index = params[:tag][:district_index]
-   @name = params[:tag][:name]
-   @tags = Tag.all
+    # redirect_to cities_path
+    @tag = Tag.new
+    @district_index = params[:tag][:district_index]
+    @name = params[:tag][:name]
+    @tags = Tag.all
 
     @district_tag = []
     @top = []
@@ -32,6 +32,7 @@ class TagsController < ApplicationController
       @top << data
     end
     @top = @top.reverse
+
     render 'cities/fetch_name', format: :js
   end
 
