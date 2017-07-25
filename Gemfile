@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
-gem 'aws-sdk-v1'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
 gem 'gon'
 gem 'figaro'
 gem 'jbuilder', '~> 2.0'
