@@ -99,32 +99,32 @@ map.on('load', function () {
       "filter": ["==", "name", ""]
     });
 
-  // filterInput.addEventListener('keyup', function(e) {
-  //       // If the input value matches a layerID set
-  //       // it's visibility to 'visible' or else hide it.
-  //       var value = e.target.value.trim().toLowerCase();
-  //       var places = []
-  //       gon.tags.forEach(function(tag) {
-  //       if (value == tag.content) {
-  //         places.push(tag.name);
-  //       }
-  //       });
-  //       places.forEach(function(place) {
-  //         console.log("fills-" + place)
-  //         map.addLayer({
-  //           "id": "fills-" + place,
-  //           "type": "fill",
-  //           "source": "district",
-  //           "layout": {},
-  //           "paint": {
-  //             "fill-color": "#fff",
-  //             "fill-opacity": 0.5
-  //           },
-  //           "filter": ["==", "FEDENAME", ""]
-  //         });
-  //         map.setFilter("fills-" + place, ["==", "FEDENAME", place]);
-  //       });
-  //   });
+  filterInput.addEventListener('keyup', function(e) {
+        // If the input value matches a layerID set
+        // it's visibility to 'visible' or else hide it.
+        var value = e.target.value.trim().toLowerCase();
+        var places = []
+        gon.tags.forEach(function(tag) {
+        if (value == tag.content) {
+          places.push(tag.name);
+        }
+        });
+        places.forEach(function(place) {
+          console.log("fills-" + place)
+          map.addLayer({
+            "id": "fills-" + place,
+            "type": "fill",
+            "source": "district",
+            "layout": {},
+            "paint": {
+              "fill-color": "#fff",
+              "fill-opacity": 0.5
+            },
+            "filter": ["==", "FEDENAME", ""]
+          });
+          map.setFilter("fills-" + place, ["==", "FEDENAME", place]);
+        });
+    });
 
 
   map.on('click', 'state-fills', function (e) {
