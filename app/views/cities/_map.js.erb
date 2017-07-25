@@ -70,7 +70,6 @@ map.on('load', function () {
   });
 
 
-
   map.addLayer({
     "id": "neighbor",
     "type": "symbol",
@@ -137,6 +136,8 @@ map.on('load', function () {
       error:function(){
        //alert('Error');
       }
+
+
     });
 
     console.log($('.temp_information').data('temp'))
@@ -146,6 +147,9 @@ map.on('load', function () {
 
     var neighbor_name = e.features[0].properties.FEDENAME;
     $('#pop_up_name').html(neighbor_name);
+
+                  preventDefault();
+
 
   });
 

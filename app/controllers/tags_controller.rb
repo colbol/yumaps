@@ -32,7 +32,7 @@ class TagsController < ApplicationController
       @top << data
     end
     @top = @top.reverse
-
+    @from_create_tag = true
     render 'cities/fetch_name', format: :js
   end
 

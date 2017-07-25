@@ -20,13 +20,15 @@
       <%= simple_form_for tag, action: :create, method: :post, remote: true do |f| %>
       <%= f.error_notification %>
       <div class="city-enter-tag-input">
-        <%= f.input :content, autofocus: true, placeholder: 'Add your tag', label: false, error: "You must enter a tag", hint: "Click on the neighbourhood you want to tag" %>
+        <%= f.input :content, autofocus: true, placeholder: 'Add your tag', label: false, error: "You must enter a tag"%>
         <%= f.hidden_field :name, value: name %>
         <%= f.hidden_field :district_index, value: district_index %>
         <%= f.hidden_field :district_id, value: District.find_by(name: name).id %>
       </div>
       <div class="form-actions">
-        <a><%= f.button :submit, "Submit" %></a>
+        <a id="submit_button"><%= f.button :submit, "Submit" %></a>
       </div>
       <% end %>
+      <center><div id="result"></div></center>
+
   </div>
