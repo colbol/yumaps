@@ -9,7 +9,5 @@
 
 require 'json'
 
-filepath =  "#{Rails.root}/db/montreal.geojson"
-
 file = File.read(filepath)
 hash = JSON.parse(file)
