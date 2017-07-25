@@ -25,7 +25,6 @@ zoom: 10.3 // starting zoom
 
 // map.scrollZoom.disable();
 
-
 var layerIDs = []; // Will contain a list used to filter against.
 var filterInput = document.getElementById('filter-input');
 
@@ -35,6 +34,16 @@ map.on('load', function () {
     "type": "geojson",
     "data": gon.json
   });
+
+
+// loadshp({
+//     url: 'montrealShape.zip',
+//     encoding: 'utf-8',
+//     EPSG: 4326
+// }, function(data) {
+//     vector.addData(data);
+//     map.fitBounds(vector.getBounds());
+// });
 
   map.addLayer({
     "id": "state-fills",
@@ -127,12 +136,12 @@ map.on('load', function () {
       url: "<%= @city.id %>/fetch_name",
       type: "post",
       data: {name: e.features[0].properties.FEDENAME, district_index: arr.indexOf(e.features[0].properties.FEDENAME)},
-      success: function(){
-        //alert('Saved Successfully');
-      },
-      error:function(){
-       //alert('Error');
-      }
+      // success: function(){
+      //   alert('Saved Successfully');
+      // },
+      // error:function(){
+      //  alert('Error');
+      // }
     });
 
     console.log($('.temp_information').data('temp'))
