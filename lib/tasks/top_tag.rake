@@ -60,10 +60,7 @@ task :top_tag => [:environment]  do
   puts "Uploaded!"
 end
 
-s3 = AWS::S3.new
-obj = s3.buckets['yumaps'].objects['uploads/montreal.geojson'] # no request made
 
-obj.acl = :public_read
 
 
 
