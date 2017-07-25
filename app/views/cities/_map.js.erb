@@ -14,7 +14,7 @@ for (let s of geo.features) {
 $('.info-container').hide();
 
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ';
+mapboxgl.accessToken = "pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ"
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/salimchorfi/cj58ljlw553ep2tmn2rd6787s',
@@ -34,7 +34,7 @@ map.on('load', function () {
 
   map.addSource("district", {
     "type": "geojson",
-    "data": geo
+    "data": gon.json
   });
 
   map.addLayer({
@@ -71,12 +71,14 @@ map.on('load', function () {
     "filter": ["==", "name", ""]
   });
 
+
+
   map.addLayer({
     "id": "neighbor",
     "type": "symbol",
     "source": "district",
     "layout": {
-      "text-field": "{FEDENAME}",
+      "text-field": "{tag}",
       "text-size": 11,
     }
     // "paint": {
@@ -97,32 +99,33 @@ map.on('load', function () {
       "filter": ["==", "name", ""]
     });
 
-  filterInput.addEventListener('keyup', function(e) {
-        // If the input value matches a layerID set
-        // it's visibility to 'visible' or else hide it.
-        var value = e.target.value.trim().toLowerCase();
-        var places = []
-        gon.tags.forEach(function(tag) {
-        if (value == tag.content) {
-          places.push(tag.name);
-        }
-        });
-        places.forEach(function(place) {
-          console.log("fills-" + place)
-          map.addLayer({
-            "id": "fills-" + place,
-            "type": "fill",
-            "source": "district",
-            "layout": {},
-            "paint": {
-              "fill-color": "#fff",
-              "fill-opacity": 0.5
-            },
-            "filter": ["==", "FEDENAME", ""]
-          });
-          map.setFilter("fills-" + place, ["==", "FEDENAME", place]);
-        });
-    });
+  // filterInput.addEventListener('keyup', function(e) {
+  //       // If the input value matches a layerID set
+  //       // it's visibility to 'visible' or else hide it.
+  //       var value = e.target.value.trim().toLowerCase();
+  //       var places = []
+  //       gon.tags.forEach(function(tag) {
+  //       if (value == tag.content) {
+  //         places.push(tag.name);
+  //       }
+  //       });
+  //       places.forEach(function(place) {
+  //         console.log("fills-" + place)
+  //         map.addLayer({
+  //           "id": "fills-" + place,
+  //           "type": "fill",
+  //           "source": "district",
+  //           "layout": {},
+  //           "paint": {
+  //             "fill-color": "#fff",
+  //             "fill-opacity": 0.5
+  //           },
+  //           "filter": ["==", "FEDENAME", ""]
+  //         });
+  //         map.setFilter("fills-" + place, ["==", "FEDENAME", place]);
+  //       });
+  //   });
+
 
   map.on('click', 'state-fills', function (e) {
 
