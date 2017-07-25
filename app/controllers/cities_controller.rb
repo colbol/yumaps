@@ -1,7 +1,12 @@
+require 'gon'
+require 'open-uri'
+require 'json'
+
 class CitiesController < ApplicationController
+
   def index
-     @cities = City.all
-     @tag = Tag.new
+    @cities = City.all
+    @tag = Tag.new
   end
 
   def new
@@ -14,23 +19,49 @@ class CitiesController < ApplicationController
   end
 
   def update
-
     @city = City.find(params[:id])
 
-    @ciy.update_attributes(user_params)
-    redirect_to city_path
+    @ciy.update_attributes(city_params)
   end
-
 
   def show
     @city = City.find(params[:id])
     @tag = Tag.new
     @tags = Tag.all
+    @votes = Vote.all
+    @districts = District.all
+
+    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/montreal.geojson"
+
+    file = open(filepath)
+    gon.json = JSON.parse(file.first)
+
+
+
+    gon.tags = @tags
+
   end
 
   def fetch_name
-    name = params[:name]
-    @name = name
+    @name = params[:name]
+    @district_index = params[:district_index]
+    @tags = Tag.all
+    @tag = Tag.new
+
+    @district_tag = []
+    @top = []
+
+    @tags.each do |tags|
+       @district_tag.push(tags) if tags['name'] == @name
+    end
+    # check if really most popular 20 tags
+    @district_tag.sort { |a, b| a.votes.count <=> b.votes.count }.last(20).each do |tag|
+      data = {}
+      data[:name] = tag.content
+      data[:votes] = tag.votes.count
+      @top << data
+    end
+    @top = @top.reverse
   end
 
   private
@@ -39,8 +70,4 @@ class CitiesController < ApplicationController
       params.require(:city).permit(:name, :longitude, :latitude, :zoom, :country_id)
   end
 
-
-   def tag _params
-      params.require(:city).permit(:name, :longitude, :latitude, :zoom, :country_id)
-  end
 end

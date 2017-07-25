@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
+gem 'aws-sdk-v1'
+gem 'gon'
 gem 'figaro'
 gem 'jbuilder', '~> 2.0'
 gem 'pg'

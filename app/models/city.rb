@@ -5,6 +5,7 @@ class City < ApplicationRecord
   validates :longitude, presence: true
   validates :latitude, presence:true
   validates :zoom, presence:true
+  @file = File.read("#{Rails.root}/app/assets/javascripts/montreal.geojson")
 
   include PgSearch
   # multisearchable against: [ :name ], using: [ :trigram, :tsearch => {:prefix => true} ]
