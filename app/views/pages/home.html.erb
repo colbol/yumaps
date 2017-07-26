@@ -1,18 +1,24 @@
-<head>
-  <title>yutags--tag your city</title>
-</head>
-<body>
-  <!-- <h1>ENTER A CITY!!<h1> -->
- <div class="home-page" >
-  <div class="wrap">
-   <div class="search">
-    <%= form_tag results_index_path, method: :get do %>
-     <%= text_field_tag :query, params[:query] %>
-     <%= submit_tag "Search", name: nil %>
-    <% end %>
-   </div>
-  </div>
- </div>
-</body>
+<div class="home-page">
+    <div class="wrapper">
 
+      <div class="word-wall">
+        <div class="background-blur"></div>
+        <div class="search">
+            <div id="input"></div>
+                <%= form_tag results_index_path, method: :get do %>
+                  <%= text_field_tag :query, params[:query], id: "hiddenInput", autocomplete: "off" %>
+                <% end %>
+            </div>
+        </div>
+        <div id="background-gradient">
+          <% Tag.last(500).each do |tag| %>
+            <p class="word"><%= tag.content.upcase %></p>
+          <% end %>
+        </div>
+      <div>
 
+    </div>
+
+<%= render(partial: 'home', handlers: [:erb], formats: [:js]) %>
+
+</div>
