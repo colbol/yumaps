@@ -34,6 +34,7 @@ map.on('load', function () {
   map.addSource("district", {
     "type": "geojson",
     "data": gon.json
+    // gon.json
   });
 
 
@@ -74,13 +75,18 @@ map.on('load', function () {
     "type": "symbol",
     "source": "district",
     "layout": {
-      "text-field": "{tag}",
+      "text-field": "{FEDENAME}",
       "text-size": 11,
     }
     // "paint": {
     //   "text-color": "white",
     // },
   });
+
+  console.log(geo.features[0].properties.ID)
+  // geo.features.forEach(function(district) {
+  //   console.log(district.properties.FEDENAME)
+  // });
 
   var districts = gon.district;
 
@@ -161,7 +167,9 @@ map.on('load', function () {
     var neighbor_name = e.features[0].properties.FEDENAME;
     $('#pop_up_name').html(neighbor_name);
 
+
     // preventDefault();
+
   });
 
 // Change the cursor to a pointer when the mouse is over the places layer.
