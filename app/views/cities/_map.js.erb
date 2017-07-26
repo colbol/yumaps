@@ -31,6 +31,7 @@ zoom: 10.3 // starting zoom
 var layerIDs = []; // Will contain a list used to filter against.
 var filterInput = document.getElementById('filter-input');
 
+
 map.on('load', function () {
 
   map.addSource("district", {
@@ -109,6 +110,7 @@ map.on('load', function () {
 
   districts.forEach(function(district) {
       var layerID = "fills-" + district['name'];
+      console.log(layerID);
       map.addLayer({
         "id": layerID,
         "type": "fill",
@@ -155,14 +157,26 @@ map.on('load', function () {
 
   map.on('click', 'state-fills', function (e) {
 
+    map.removeLayer("state-select");
+
+    map.addLayer({
+      "id": "state-select",
+      "type": "fill",
+      "source": "district",
+      "layout": {},
+      "paint": {
+        "fill-color": "#AC0C0C",
+        "fill-opacity": 0.2
+      }
+    });
+
     $.ajax({
       url: "<%= @city.id %>/fetch_name",
       type: "post",
       data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
-
     });
 
-    console.log($('.temp_information').data('temp'))
+    map.setFilter("state-select", ["==", "FEDENAME", e.features[0].properties.FEDENAME])
 
     $('.cards').show();
 
@@ -173,7 +187,7 @@ map.on('load', function () {
 
 
 
-
+    // preventDefault();
 
   });
 

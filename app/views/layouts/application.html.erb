@@ -28,7 +28,7 @@
     <script src="https://unpkg.com/@turf/turf@3.5.2/turf.min.js"></script>
 
 
-    <title>Yumaps</title>
+    <title>Yutags - tag your city</title>
     <%= include_gon(:init => true) %>
     <%= Gon::Base.render_data({}) %>
     <%= csrf_meta_tags %>
@@ -41,7 +41,6 @@
 
   </head>
   <body>
-    <!-- FIX THIS -->
     <%= yield %>
     <%= javascript_include_tag 'application' %>
     <%= yield(:after_js) %>
