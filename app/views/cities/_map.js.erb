@@ -28,6 +28,7 @@ zoom: 10.3 // starting zoom
 var layerIDs = []; // Will contain a list used to filter against.
 var filterInput = document.getElementById('filter-input');
 
+
 map.on('load', function () {
 
   map.addSource("district", {
@@ -87,6 +88,7 @@ map.on('load', function () {
 
   districts.forEach(function(district) {
       var layerID = "fills-" + district['name'];
+      console.log(layerID);
       map.addLayer({
         "id": layerID,
         "type": "fill",
@@ -133,24 +135,33 @@ map.on('load', function () {
 
   map.on('click', 'state-fills', function (e) {
 
+    map.removeLayer("state-select");
+
+    map.addLayer({
+      "id": "state-select",
+      "type": "fill",
+      "source": "district",
+      "layout": {},
+      "paint": {
+        "fill-color": "#AC0C0C",
+        "fill-opacity": 0.2
+      }
+    });
+
     $.ajax({
       url: "<%= @city.id %>/fetch_name",
       type: "post",
       data: {name: e.features[0].properties.FEDENAME, district_index: arr.indexOf(e.features[0].properties.FEDENAME)},
-
     });
 
-    console.log($('.temp_information').data('temp'))
+    map.setFilter("state-select", ["==", "FEDENAME", e.features[0].properties.FEDENAME])
 
     $('.info-container').show();
-
 
     var neighbor_name = e.features[0].properties.FEDENAME;
     $('#pop_up_name').html(neighbor_name);
 
-                  preventDefault();
-
-
+    // preventDefault();
   });
 
 // Change the cursor to a pointer when the mouse is over the places layer.
