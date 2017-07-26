@@ -25,8 +25,7 @@ body { margin:0; padding:0; }
   justify-content: flex-start;
   top: 3%;
   right: 3%;
-  width: 200px;
-  background-color: #FFFAFA;
+  width: auto;
 
 }
 
@@ -41,6 +40,27 @@ body { margin:0; padding:0; }
 
 .city-enter-tag-submit {
   width: 100%;
+}
+
+.filter-ctrl {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+        width: 180px;
+}
+
+.filter-ctrl input[type=text] {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    width: 100%;
+    border: 0;
+    background-color: #fff;
+    height: 40px;
+    margin: 0;
+    color: rgba(0,0,0,.5);
+    padding: 10px;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+    border-radius: 3px;
 }
 
 

@@ -2,13 +2,16 @@
 
 
 $( document ).ready(function() {
-  $('.info-container').hide();
+  $('.cards').hide();
+      $('#close').on('click', function(){
+        $('.cards').hide();
+    });
 });
 
 arr = []
 
 for (let s of geo.features) {
-   arr.push(s.properties.FEDENAME)
+   arr.push(s.properties.NAME)
 }
 
 $('.info-container').hide();
@@ -17,7 +20,7 @@ $('.info-container').hide();
 mapboxgl.accessToken = "pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ"
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v9',
+  style: 'mapbox://styles/salimchorfi/cj5lipb052j8y2rmmzxl9m7jm',
   center: [-73.694, 45.546],
 zoom: 10.3 // starting zoom
 
@@ -53,9 +56,22 @@ map.on('load', function () {
     "layout": {},
     "paint": {
       "fill-color": "#627BC1",
-      "fill-opacity": 0.2
+      "fill-opacity": 0
     }
   });
+
+  map.addLayer({
+      "id": "state-fills-hover",
+      "type": "fill",
+      "source": "district",
+      "layout": {},
+      "paint": {
+          "fill-color": "#627BC1",
+          "fill-opacity": 0.3
+      },
+      "filter": ["==", "NAME", ""]
+  });
+
 
   map.addLayer({
     "id": "state-borders",
@@ -63,7 +79,7 @@ map.on('load', function () {
     "source": "district",
     "layout": {},
     "paint": {
-      "line-color": "#fff", //#708090
+      "line-color": "#708090", //#708090
       "line-width": 1
     }
   });
@@ -74,8 +90,8 @@ map.on('load', function () {
     "type": "symbol",
     "source": "district",
     "layout": {
-      "text-field": "{FEDENAME}",
-      "text-size": 11,
+      "text-field": "{tag}",
+      "text-size": 13,
     }
     // "paint": {
     //   "text-color": "white",
@@ -84,7 +100,7 @@ map.on('load', function () {
 
   console.log(geo.features[0].properties.ID)
   // geo.features.forEach(function(district) {
-  //   console.log(district.properties.FEDENAME)
+  //   console.log(district.properties.NAME)
   // });
 
   var districts = gon.district;
@@ -102,9 +118,9 @@ map.on('load', function () {
           "fill-color": "#fff",
           "fill-opacity": 0.5
         },
-        "filter": ["==", "FEDENAME", ""]
+        "filter": ["==", "NAME", ""]
       });
-      map.setFilter(layerID, ["==", "FEDENAME", district['name']]);
+      map.setFilter(layerID, ["==", "NAME", district['name']]);
     });
 
   var RemoveLayers = function(districts) {
@@ -122,7 +138,7 @@ map.on('load', function () {
       // it's visibility to 'visible' or else hide it.
       var value = e.target.value.trim().toLowerCase();
       var places = []
-      map.setFilter("state-fills", ["==", "FEDENAME", ""]);
+      map.setFilter("state-fills", ["==", "NAME", ""]);
       gon.tags.forEach(function(tag) {
       if (value == tag.content) {
         places.push(tag.name);
@@ -142,22 +158,33 @@ map.on('load', function () {
     $.ajax({
       url: "<%= @city.id %>/fetch_name",
       type: "post",
-      data: {name: e.features[0].properties.FEDENAME, district_index: arr.indexOf(e.features[0].properties.FEDENAME)},
+      data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
 
     });
 
     console.log($('.temp_information').data('temp'))
 
-    $('.info-container').show();
+    $('.cards').show();
 
 
-    var neighbor_name = e.features[0].properties.FEDENAME;
+    var neighbor_name = e.features[0].properties.NAME;
     $('#pop_up_name').html(neighbor_name);
+    $('#district_name').html(neighbor_name);
+
 
 
 
 
   });
+
+// map.on("mousemove", "state-fills", function(e) {
+//     map.setFilter("state-fills-hover", ["==", "NAME", e.features[0].properties.NAME]);
+// });
+
+// // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
+// map.on("mouseleave", "state-fills", function() {
+//     map.setFilter("state-fills-hover", ["==", "NAME", ""]);
+// });
 
 // Change the cursor to a pointer when the mouse is over the places layer.
 map.on('mouseenter', 'state-fills', function () {

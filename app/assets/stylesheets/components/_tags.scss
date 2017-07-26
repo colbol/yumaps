@@ -2,8 +2,10 @@
   border-bottom: 1px solid #ccc;
 }
 .scroll {
-  max-height: 400px;
+  max-height: 30vh;
   overflow:scroll;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .city-tag-title {
   padding: 10px;
@@ -33,4 +35,8 @@
   justify-content: center;
   display: flex;
   align-items: center;
+}
+
+.district_name {
+
 }

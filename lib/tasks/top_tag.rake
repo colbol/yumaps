@@ -12,7 +12,7 @@ task :top_tag => [:environment]  do
 
     hash['features'].each do |details|
       #find district
-      district = details['properties']['FEDENAME']
+      district = details['properties']['NAME']
 
       # store all the tags in array -- district_tag
       district_tag = []
@@ -20,7 +20,8 @@ task :top_tag => [:environment]  do
       tag_vote = []
 
       @tags.each do |tags|
-        district_tag.push(tags) if tags['name'] == district
+        district_tag.push(tags) if
+        tags['name'] == district
       end
 
       # create an hash with the amount of votes for each tag (tag.votes.count)
@@ -38,9 +39,11 @@ task :top_tag => [:environment]  do
         top.first(20)
       end
 
-      if details['properties']['tag'] != largest_hash_key(data)[0]
+
+      # if details['properties']['tag'] != largest_hash_key(data)[0]
         details['properties']['tag'] = largest_hash_key(data)[0]
-      end
+        p "#{district}: #{largest_hash_key(data)[0]}"
+      # end
 
 
 

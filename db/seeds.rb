@@ -30,24 +30,37 @@ city_params =
 ]
 
 arr = [
+
 ["Ahuntsic", 0],
-["Saint-Laurent - Cartierville", 1],
-["Saint-LÈonard - Saint-Michel", 2],
-["HonorÈ-Mercier", 3],
-["Bourassa", 4],
-["La Pointe-de-l'Œle", 5],
+["Saint-Laurent", 1],
+["Saint-Léonard", 2],
+["Rivière-des-Prairies", 3],
+["Montréal-Nord", 4],
+["Montréal-Est", 5],
 ["Hochelaga", 6],
-["Papineau", 7],
-["Rosemont - La Petite-Patrie", 8],
-["Laurier - Sainte-Marie", 9],
+["Villeray", 7],
+["Rosemont", 8],
+["Plateau Mont-Royal", 9],
 ["Outremont", 10],
-["Westmount - Ville-Marie", 11],
-["Mount Royal", 12],
-["Notre-Dame-de-Gr‚ce - Lachine", 13],
-["Jeanne-Le Ber", 14],
-["LaSalle - …mard", 15],
+["Vieux-Montréal", 11],
+["Westmount", 12],
+["Dorval - Lachine", 13],
+["Sud-ouest", 14],
+["LaSalle", 15],
 ["Pierrefonds - Dollard", 16],
-["Lac-Saint-Louis", 17]
+["West Island", 17],
+["Laval", 18],
+["Brossard", 19],
+["Saint-Lambert", 20],
+["Longueuil", 21],
+["Saint-Bruno - Saint-Hubert", 22],
+["Île Bizard", 23],
+["Laval Ouest", 24],
+["Laval Est", 25],
+["Laval Nord", 26],
+["Île pérrot", 27],
+["Repentigny", 28],
+["Chateauguay", 29]
 ]
 
 #city_params.each do |params|
