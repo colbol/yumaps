@@ -176,7 +176,7 @@ map.on('load', function () {
       data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
     });
 
-    map.setFilter("state-select", ["==", "FEDENAME", e.features[0].properties.FEDENAME])
+    map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME])
 
     $('.cards').show();
 
