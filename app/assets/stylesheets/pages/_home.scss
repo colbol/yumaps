@@ -123,20 +123,53 @@
 }
 
 .blink {
-  position: static;
-  top: -5px;
-  -webkit-animation: blink 0.3s ease 0 infinite alternate;
-  -moz-animation: blink 0.3s ease 0 infinite alternate;
+  animation: 1s blink step-end infinite;
+
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #fff;
+  }
 }
 
 @-moz-keyframes blink {
-  from { opacity: 0 }
-  to { opactiy: 1 }
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #fff;
+  }
 }
 
-@-webkit-keyframes blink {
-  from { opacity: 0 }
-  to { opactiy: 1 }
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #fff;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #fff;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #fff;
+  }
 }
 
 @-moz-keyframes dropTop {
