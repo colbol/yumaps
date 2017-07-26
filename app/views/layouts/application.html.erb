@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= meta_title %></title>
   <meta name="description" content="<%= meta_description %>">
 
   <!-- Facebook Open Graph data -->
@@ -29,7 +28,7 @@
     <script src="https://unpkg.com/@turf/turf@3.5.2/turf.min.js"></script>
 
 
-    <title>yutags--tag your city</title>
+    <title>Yumaps</title>
     <%= include_gon(:init => true) %>
     <%= Gon::Base.render_data({}) %>
     <%= csrf_meta_tags %>
@@ -39,9 +38,6 @@
     <!--[if IE]>
     <script type="text/javascript" src="lib/jszip-utils-ie.js"></script>
     <![endif]-->
-
-    <script src="preprocess.js"></script>
-    <script src="preview.js"></script>
 
   </head>
   <body>
