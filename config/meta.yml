@@ -1,5 +1,5 @@
-meta_product_name: "Product Name"
-meta_title: "Product name - Product tagline"
-meta_description: "Relevant description"
-meta_image: "cover.png"                       # should exist in `app/assets/images/`
-twitter_account: "@product_twitter_account"   # required for Twitter Cards
+meta_product_name: "Yutags"
+meta_title: "Tag your city!"
+meta_description: "Find your city and change the name of your neighbourhood to something more accurate."
+meta_image: "world-background.png"
+twitter_account: "@colbol"
