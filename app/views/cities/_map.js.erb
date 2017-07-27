@@ -177,9 +177,9 @@ map.on('load', function () {
       data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
     });
 
-    map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME])
+    map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME]);
 
-    $('.cards').show();
+    // $('.cards').show();
 
 
     var neighbor_name = e.features[0].properties.NAME;
