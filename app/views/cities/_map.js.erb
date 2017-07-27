@@ -234,13 +234,15 @@ map.on('load', function () {
 
     // map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME])
 
-    $('.cards').show();
+    // $('.cards').show();
 
 
     var neighbor_name = e.features[0].properties.NAME;
+
     var district_id = e.features[0].properties.ID;
     $('#pop_up_name').html(neighbor_name);
     $('#district_name').html(neighbor_name);
+
 
     var all_district = gon.district
     $('#top_tag').text(all_district[district_id].description);

@@ -3,46 +3,16 @@ require 'open-uri'
 require 'json'
 
 class CitiesController < ApplicationController
-
-  def index
-    @cities = City.all
-    @tag = Tag.new
-  end
-
-  def new
-    @city = City.new
-  end
-
-  def create
-    @city = City.new(city_params)
-    @city.save!
-  end
-
-  def update
-    @city = City.find(params[:id])
-
-    @ciy.update_attributes(city_params)
-  end
-
   def show
     # Not sure where we use this
     @city = City.find(params[:id])
-
-    # Don't think we need it
-      # @tag = Tag.new
-      # @votes = Vote.all
-      # @districts = District.all
-
     # Opens the file from amazon server which we use in the map partial with the addsource
     filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
     file = open(filepath)
     gon.json = JSON.parse(file.first)
-
     #Sends the tags to the map partial for the filter feature
-    @tags = Tag.all
-    gon.tags = @tags
-    @district = District.all
-    gon.district = @district
+    gon.tags = Tag.all
+    gon.district = District.all
   end
 
   def fetch_name
@@ -70,7 +40,7 @@ class CitiesController < ApplicationController
   private
 
   def city_params
-      params.require(:city).permit(:name, :longitude, :latitude, :zoom, :country_id)
+    params.require(:city).permit(:name, :longitude, :latitude, :zoom, :country_id)
   end
 
 end
