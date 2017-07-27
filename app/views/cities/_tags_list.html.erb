@@ -21,7 +21,7 @@
         <%= f.input :content, required: true, autofocus: true, placeholder: 'Add your tag', label: false, error: "You must enter a tag" %>
         <%= f.hidden_field :name, value: name %>
         <%= f.hidden_field :district_index, value: district_index %>
-        <%#= f.hidden_field :district_id, value: District.find_by(name: name).id %>
+        <%= f.hidden_field :district_id, value: District.find_by(name: name).id %>
 
 
 
