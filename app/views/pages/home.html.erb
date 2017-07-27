@@ -1,24 +1,50 @@
 <div class="home-page">
-    <div class="wrapper">
-
-      <div class="word-wall">
-        <div class="background-blur"></div>
-        <div class="search">
-            <div id="input"></div>
-                <%= form_tag results_index_path, method: :get do %>
-                  <%= text_field_tag :query, params[:query], id: "hiddenInput", autocomplete: "off" %>
-                <% end %>
-            </div>
+  <div class="wrapper">
+    <div class="logo">
+      <%= image_tag 'logo-yutags.svg' %>
+    </div>
+    <div class="card-wrapper">
+      <div class="city-card">
+        <div class="pic">
+          <%= image_tag 'montreal.jpg' %>
         </div>
-        <div id="background-gradient">
-          <% Tag.last(500).each do |tag| %>
-            <p class="word"><%= tag.content.upcase %></p>
-          <% end %>
+        <div class="title">
+          <span>
+            Montreal
+          </span>
         </div>
-      <div>
+      </div>
 
+      <div class="city-card">
+        <div class="pic">
+          <%= image_tag 'montreal.jpg' %>
+        </div>
+        <div class="title">
+          <span>
+            Toronto
+          </span>
+        </div>
+      </div>
+
+      <div class="city-card">
+        <div class="pic">
+          <%= image_tag 'montreal.jpg' %>
+        </div>
+        <div class="title">
+          <span>
+            Vancouver
+          </span>
+        </div>
+      </div>
     </div>
 
+    <div class="search">
+      <div id="input"></div>
+          <%= form_tag results_index_path, method: :get do %>
+            <%= text_field_tag :query, params[:query], id: "hiddenInput", autocomplete: "off" %>
+          <% end %>
+      </div>
+    </div>
+  <div>
 <%= render(partial: 'home', handlers: [:erb], formats: [:js]) %>
-
 </div>
