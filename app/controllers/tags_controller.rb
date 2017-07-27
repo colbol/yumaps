@@ -13,8 +13,10 @@ class TagsController < ApplicationController
     else
       @from_create_vote = true
     end
-
-    Vote.find_or_create_by({tag_id: @tag.id, ip: request.remote_ip})
+    unless Vote.find_by({tag_id: @tag.id, ip: request.remote_ip})
+      Vote.create({tag_id: @tag.id, ip: request.remote_ip})
+      @voted = true
+    end
     # redirect_to cities_path
     @tag = Tag.new
     @district_index = params[:tag][:district_index]
