@@ -19,23 +19,23 @@
 
    <div class="card active" id="behance">
     <div class="card-content">
-    <a class="toggle-property card-toggle"><i><span class="fa fa-info"></span></i></a>
+    <a class="toggle-property card-toggle" id="top"><i><span class="fa fa-info"></span></i></a>
     <a class="toggle-property card-toggle-x" id="close"><i><span class="fa fa-times"></span></i></a>
       <div class="row">
           <h2 id="district_name"><strong></strong></h2>
-
-          <div id="tags_list" ></div>
+          <div id="tags_list"></div>
       </div>
     </div>
   </div>
-
 
   <div class="card" id="overview">
     <div class="card-content">
      <a class="toggle-property card-toggle"><i class="fa fa-arrow-circle-left"></i></a>
       <div class="row">
-          <h2 id="district_name"><strong></strong></h2>
-          <p>Quia fugit animi, iure error veritatis? Ipsa quis, deserunt illum culpa ab id mollitia nesciunt commodi aut dolores vero ipsam ut minima neque nam excepturi corporis obcaecati consequuntur accusantium laborum!</p>
+        <div class="scroll_top_tag">
+          <p class="top_tag_property" id="top_tag"></p>
+        </div>
+        <p></p>
       </div>
     </div>
   </div>
@@ -43,7 +43,6 @@
 
 
 </div>
-
 
 
 <% content_for(:after_js) do %>
@@ -74,22 +73,6 @@
       } else {
         return;
       }
-    });
-
-    $("input,textarea").blur(function(){
-      if( $(this).val() ){
-        $(this).parent().addClass("filled");
-      } else {
-        $(this).parent().removeClass("filled");
-      }
-    });
-
-    $(".contact").on("click",function(){
-      $(".contact-form").toggleClass("active");
-    });
-    $(".contact-form input[type=submit], .contact-form .close").on("click",function(e){
-      e.preventDefault();
-      $(".contact-form").toggleClass("active")
     });
 
   <% end %>
