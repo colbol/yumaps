@@ -24,7 +24,7 @@
         <%= f.hidden_field :district_id, value: District.find_by(name: name).id %>
       </div>
       <div class="form-actions">
-        <a id="submit_button"><%= f.button :submit, "Submit" %></a>
+        <a id="submit_button"><%= f.button :submit, "Submit", :style => "display: none;" %></a>
       </div>
       <% end %>
       <center><div id="result"></div></center>
