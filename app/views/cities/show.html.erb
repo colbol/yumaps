@@ -1,5 +1,4 @@
 <div class="city-container">
-
   <div class="map-div" id='map'></div>
   <% content_for(:after_js) do %>
   <%= render(partial: 'map', handlers: [:erb], formats: [:js]) %>
@@ -12,6 +11,7 @@
   </div> -->
 
   <div class='filter-ctrl'>
+  <%= link_to image_tag('logo.png'), root_path %>
     <input id='filter-input' type='text' name='filter' placeholder='Filter by tag' />
   </div>
 

@@ -37,7 +37,6 @@ class CitiesController < ApplicationController
     filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
     file = open(filepath)
     gon.json = JSON.parse(file.first)
-
     #Sends the tags to the map partial for the filter feature
     @tags = Tag.all
     gon.tags = @tags
