@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
+gem 'nprogress-rails'
 gem 'aws-sdk', '~> 2'
 gem 'carrierwave'
 gem 'mini_magick'

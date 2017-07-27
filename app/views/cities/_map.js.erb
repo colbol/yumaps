@@ -5,12 +5,14 @@ $( document ).ready(function() {
   $('.cards').hide();
       $('#close').on('click', function(){
         $('.cards').hide();
+        map.setLayoutProperty("state-select", 'visibility', 'none');
     });
 });
 
 arr = []
+var json = gon.json
 
-for (let s of geo.features) {
+for (let s of json.features) {
    arr.push(s.properties.NAME)
 }
 
@@ -20,7 +22,7 @@ $('.info-container').hide();
 mapboxgl.accessToken = "pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ"
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/salimchorfi/cj5lmuesh2n602so47spe3tmp',
+  style: 'mapbox://styles/salimchorfi/cj5mic58e3gcg2so1981xo8pd',
   center: [-73.694, 45.546],
 zoom: 10.3 // starting zoom
 
@@ -36,7 +38,7 @@ map.on('load', function () {
 
   map.addSource("district", {
     "type": "geojson",
-    "data": gon.json
+    "data": json
     // gon.json
   });
 
@@ -56,8 +58,8 @@ map.on('load', function () {
     "source": "district",
     "layout": {},
     "paint": {
-      "fill-color": "#627BC1",
-      "fill-opacity": 0
+      "fill-color": "#f9f7f7",
+      "fill-opacity": 0.3
     }
   });
 
@@ -80,7 +82,7 @@ map.on('load', function () {
     "source": "district",
     "layout": {},
     "paint": {
-      "line-color": "#708090", //#708090
+      "line-color": "#dbe2ee", //#708090
       "line-width": 1
     }
   });
@@ -99,7 +101,6 @@ map.on('load', function () {
     // },
   });
 
-  console.log(geo.features[0].properties.ID)
   // geo.features.forEach(function(district) {
   //   console.log(district.properties.NAME)
   // });
@@ -165,8 +166,8 @@ map.on('load', function () {
       "source": "district",
       "layout": {},
       "paint": {
-        "fill-color": "#AC0C0C",
-        "fill-opacity": 0.2
+        "fill-color": "#4173ad",
+        "fill-opacity": 0.6
       }
     });
 
