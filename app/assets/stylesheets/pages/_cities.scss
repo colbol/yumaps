@@ -43,11 +43,12 @@ body { margin:0; padding:0; }
 }
 
 .filter-ctrl {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 1;
-        width: 180px;
+  display: flex;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  width: 180px;
 }
 
 .filter-ctrl input[type=text] {
