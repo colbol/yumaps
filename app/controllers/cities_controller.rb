@@ -5,7 +5,7 @@ require 'json'
 class CitiesController < ApplicationController
   def show
     # Not sure where we use this
-    # @city = City.find(params[:id])
+    @city = City.find(params[:id])
     # Opens the file from amazon server which we use in the map partial with the addsource
     filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
     file = open(filepath)
