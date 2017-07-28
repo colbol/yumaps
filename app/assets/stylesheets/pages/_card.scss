@@ -92,7 +92,7 @@ body{
   .card-toggle{
     z-index: 4;
     position: absolute;
-    top: 0;
+    top: 0.5em;
     right: 0;
 
     .fa-info {
@@ -107,7 +107,7 @@ body{
 
   .card-toggle-x {
     position: absolute;
-    top: 0;
+    top: 0.5em;
     left: 0;
     color: #cfcfcf;
   }
@@ -224,7 +224,7 @@ body{
   #dribbble, #behance, #linkedin, #twitter{
     .card-content{
       color: white;
-      padding: 3em;
+      padding: 2em;
       display: flex;
       align-items: center;
       p{
@@ -241,12 +241,12 @@ body{
     }
     &.active .card-content{
       -webkit-clip-path: circle(270% at 76px 88%);
-      clip-path: circle(270% at 50px 88%);
+      clip-path: ceircle(270% at 50px 88%);
     }
   }
   #behance {
     .card-content{
-      background-color: #efefef;
+      background-color: white;
       -webkit-clip-path: circle(0% at 150px 88%);
       clip-path: circle(0% at 150px 88%);
 
@@ -340,6 +340,14 @@ form{
     height:65vh;
 }
 
+#tag_content {
+    margin: 2em auto 0;
+    background-color: #fff;
+    color: rgba(0,0,0,.5);
+    // box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;;
+}
 
 /*= input focus effects css
 =========================== */
@@ -348,7 +356,7 @@ form{
 :focus{outline: none;}
 
 .col-3{float: left; width: 27.33%; margin: 40px 3%; position: relative;} /* necessary to give position: relative to parent. */
-input[type="text"]{font: 15px/24px "Lato", Arial, sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 3px;}
+input[type="text"]{font: 15px/24px "Lato", Arial, sans-serif; color: #333; width: 80%; box-sizing: border-box; letter-spacing: 3px;}
 
 .effect-16,
 .effect-17,
