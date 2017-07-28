@@ -1,11 +1,10 @@
 require 'json'
 require 'open-uri'
+require 'carrierwave/storage/fog'
 
 desc "Top Tag"
 task :top_tag => [:environment]  do
-
-    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
-    puts filepath
+    filepath = "https://s3.eu-central-1.amazonaws.com/hello-wine/uploads/montreal.geojson"
     file = open(filepath)
     hash = JSON.parse(file.first)
     @tags = Tag.all
@@ -35,20 +34,19 @@ task :top_tag => [:environment]  do
         hash.max_by{|k,v| v}
       end
 
-      def top(hash)
-        top = hash.sort_by { |content, votes| - votes }
-        top.first(20)
-      end
+      # def top(hash)
+      #   top = hash.sort_by { |content, votes| - votes }
+      #   top.first(20)
+      # end
 
 
       # if details['properties']['tag'] != largest_hash_key(data)[0]
         details['properties']['tag'] = largest_hash_key(data)[0]
-        p "#{district}: #{largest_hash_key(data)[0]}"
+        p "hello #{district}: #{largest_hash_key(data)[0]}"
       # end
 
-
-
       uploader = FileUploader.new
+
       File.open(file, 'w+') do |f|
           f.write(hash.to_json)
           uploader.store!(f)
