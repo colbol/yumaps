@@ -23,6 +23,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'faker'
 gem 'addressable'
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'better_errors'
