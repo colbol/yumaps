@@ -171,8 +171,8 @@
 
 
 
-
-    map.on('click', 'state-fills', function (e) {
+    function allowClickMap() {
+      map.on('click', 'state-fills', function (e) {
       console.log("inside")
 
         try{
@@ -207,51 +207,43 @@
 
 
 
-      // preventDefault();
 
     });
-
-  // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on('mouseenter', 'state-fills', function () {
-    map.getCanvas().style.cursor = 'pointer';
-  });
+      map.on('mouseenter', 'state-fills', function () {
+        map.getCanvas().style.cursor = 'pointer';
+      });
 
   // Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'state-fills', function () {
-    map.getCanvas().style.cursor = '';
-  });
+      map.on('mouseleave', 'state-fills', function () {
+        map.getCanvas().style.cursor = '';
+      });
+
+    }
+
+allowClickMap();
+  // Change the cursor to a pointer when the mouse is over the places layer.
 
 
   addEventListener('keyup', function(e) {
     if ($('#filter-input').val() != "") {
-      addEventListener('keyup', function(e) {
             // If the input value matches a layerID set
             // it's visibility to 'visible' or else hide it.
-
               var value = e.target.value.trim().toLowerCase();
               var places = [];
 
-            map.setFilter("state-fills", ["==", "NAME", ""]);
             gon.tags.forEach(function(tag) {
             if (value == tag.content) {
               places.push(tag.name);
-              return;
             } else {
               RemoveLayers(districts);
-              return;
             }
             });
             if (places.length > 0) {
               places.forEach(function(place) {
               var layerID = "fills-" + place;
               map.setLayoutProperty(layerID, 'visibility');
-              return;
               });
-            } else {
-              return;
             }
-            return;
-        });
     }
   });
 
