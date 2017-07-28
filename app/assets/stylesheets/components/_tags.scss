@@ -15,6 +15,7 @@
 .city-tag-ranking {
   padding: 10px;
   max-height: 50%;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 .tag-list-container {
   position: relative;
@@ -34,5 +35,9 @@
   justify-content: center;
   display: flex;
   align-items: center;
+}
+
+#district_name {
+  font-family: "Courier Prime";
 }
 

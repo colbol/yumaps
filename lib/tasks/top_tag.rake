@@ -1,12 +1,11 @@
 require 'json'
 require 'open-uri'
-require "addressable/uri"
 
 desc "Top Tag"
 task :top_tag => [:environment]  do
-    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
 
-    filepath = Addressable::URI.parse(filepath)
+    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
+    puts filepath
     file = open(filepath)
     hash = JSON.parse(file.first)
     @tags = Tag.all
