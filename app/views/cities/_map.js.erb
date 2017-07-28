@@ -1,278 +1,262 @@
-<script>
-NProgress.start();
+  <script>
+  NProgress.start();
 
-var previous_district = []
-
-$( document ).ready(function() {
-  $('.cards').hide();
-
-      $('#close').on('click', function(){
-        $('.cards').hide();
-        map.setLayoutProperty(previous_district.slice(-1)[0], 'visibility', 'none');
-      });
-});
-
-arr = []
-var json = gon.json
-
-for (let s of json.features) {
-   arr.push(s.properties.NAME)
-}
-
-$('.info-container').hide();
+  // Keeps tracks of all the district cliked by the user
+  var previous_district = []
 
 
-mapboxgl.accessToken = "pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ"
-var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/salimchorfi/cj5mic58e3gcg2so1981xo8pd',
-  center: [-73.694, 45.546],
-zoom: 10.3 // starting zoom
+  // Hides the information card on loading
+  $( document ).ready(function() {
+    $('.cards').hide();
 
-});
-
-// map.scrollZoom.disable();
-
-var layerIDs = []; // Will contain a list used to filter against.
-var filterInput = document.getElementById('filter-input');
-
-
-map.on('load', function () {
-
-  map.addSource("district", {
-    "type": "geojson",
-    "data": json
-    // gon.json
+        $('#close').on('click', function(){
+          $('.cards').hide();
+          map.setLayoutProperty(previous_district.slice(-1)[0], 'visibility', 'none');
+        });
   });
 
 
-// loadshp({
-//     url: 'montrealShape.zip',
-//     encoding: 'utf-8',
-//     EPSG: 4326
-// }, function(data) {
-//     vector.addData(data);
-//     map.fitBounds(vector.getBounds());
-// });
+  arr = []
+  var json = gon.json
 
-  map.addLayer({
-    "id": "state-fills",
-    "type": "fill",
-    "source": "district",
-    "layout": {},
-    "paint": {
-      "fill-color": "#f9f7f7",
-      "fill-opacity": 0.3
-    }
+  for (let s of json.features) {
+     arr.push(s.properties.NAME)
+  }
+
+  $('.info-container').hide();
+
+  // Loads the map
+  mapboxgl.accessToken = "pk.eyJ1Ijoic2FsaW1jaG9yZmkiLCJhIjoiY2o0azBlenFpMGV6ajJ3cWhmOWwzeHBzcyJ9.9kmFrJOa12m_9PxIvAJatQ"
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/salimchorfi/cj5mic58e3gcg2so1981xo8pd',
+    center: [-73.694, 45.546],
+  zoom: 10.3 // starting zoom
+
   });
 
-  map.addLayer({
-      "id": "state-fills-hover",
+  // map.scrollZoom.disable();
+
+  var layerIDs = [];
+  var filterInput = document.getElementById('filter-input');
+
+
+  map.on('load', function () {
+    console.log("loaded")
+
+    map.addSource("district", {
+      "type": "geojson",
+      "data": json
+    });
+
+    map.addLayer({
+      "id": "state-fills",
       "type": "fill",
       "source": "district",
       "layout": {},
       "paint": {
-          "fill-color": "#627BC1",
-          "fill-opacity": 0.3
+        "fill-color": "#f9f7f7",
+        "fill-opacity": 0.3
+      }
+    });
+
+    map.addLayer({
+        "id": "state-fills-hover",
+        "type": "fill",
+        "source": "district",
+        "layout": {},
+        "paint": {
+            "fill-color": "#627BC1",
+            "fill-opacity": 0.3
+        },
+        "filter": ["==", "NAME", ""]
+    });
+
+
+    map.addLayer({
+      "id": "state-borders",
+      "type": "line",
+      "source": "district",
+      "layout": {},
+      "paint": {
+        "line-color": "#dbe2ee", //#708090
+        "line-width": 1
+      }
+    });
+
+    map.addLayer({
+
+      "id": "neighbor",
+      "type": "symbol",
+      "source": "district",
+      "layout": {
+        "text-field": "{tag}",
+        "text-size": 11,
+        "text-font": ["Courier Prime Bold"],
       },
-      "filter": ["==", "NAME", ""]
+          "paint": {
+            "text-color": "#606060"
+          }
+    });
+
+    var districts = gon.district;
+
+
+
+  var AddLayers = function(districts) {
+    districts.forEach(function(district) {
+        var rgb = [];
+        for(var i = 0; i < 3; i++)
+          rgb.push(Math.floor(Math.random() * 255));
+
+        var color = 'rgb('+ rgb.join(',') +')';
+        var layerID = "fills-" + district['name'];
+
+        map.addLayer({
+          "id": layerID,
+          "type": "fill",
+          "source": "district",
+          "layout": {},
+          "paint": {
+            "fill-color": "#4f4f51",
+            "fill-opacity": 0.5
+          },
+          "filter": ["==", "NAME", ""]
+        });
+
+        map.setFilter(layerID, ["==", "NAME", district['name']]);
+
+        map.addLayer({
+          "id": "color-" + district['name'],
+          "type": "fill",
+          "source": "district",
+          "layout": {},
+          "paint": {
+            "fill-color": color,
+            "fill-opacity": 0.1
+          },
+          "filter": ["==", "NAME", ""]
+        });
+
+        map.addLayer({
+          "id": "select-color-" + district['name'],
+          "type": "fill",
+          "source": "district",
+          "layout": {},
+          "paint": {
+            "fill-color": color,
+            "fill-opacity": 0.7
+          },
+          "filter": ["==", "NAME", ""]
+        });
+
+        map.setFilter("color-" + district['name'], ["==", "NAME", district['name']]);
+        map.setFilter("select-color-" + district['name'], ["==", "NAME", district['name']]);
+
+      });
+    }
+
+    var RemoveLayers = function(districts) {
+      districts.forEach(function(district) {
+        var layerID = "fills-" + district['name'];
+        map.setLayoutProperty(layerID, 'visibility', 'none');
+        map.setLayoutProperty("select-color-" + district['name'], 'visibility', 'none');
+      });
+    }
+
+    AddLayers(districts)
+    RemoveLayers(districts)
+    NProgress.done();
+
+
+
+
+
+    map.on('click', 'state-fills', function (e) {
+      console.log("inside")
+
+        try{
+        map.setLayoutProperty(previous_district.slice(-1)[0], 'visibility', 'none');
+        }catch(e){
+        functionToHandleError(e);
+        }
+
+        map.setLayoutProperty("select-color-" + e.features[0].properties.NAME, 'visibility');
+        previous_district.push("select-color-" + e.features[0].properties.NAME)
+
+
+      $.ajax({
+        url: "<%= @city.id %>/fetch_name",
+        type: "post",
+        data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
+      });
+
+
+      $('.cards').show();
+
+
+      var neighbor_name = e.features[0].properties.NAME;
+
+      var district_id = e.features[0].properties.ID;
+      $('#pop_up_name').html(neighbor_name);
+      $('#district_name').html(neighbor_name);
+
+
+      var all_district = gon.district
+      $('#top_tag').text(all_district[district_id].description);
+
+
+
+      // preventDefault();
+
+    });
+
+  // Change the cursor to a pointer when the mouse is over the places layer.
+  map.on('mouseenter', 'state-fills', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  // Change it back to a pointer when it leaves.
+  map.on('mouseleave', 'state-fills', function () {
+    map.getCanvas().style.cursor = '';
   });
 
 
-  map.addLayer({
-    "id": "state-borders",
-    "type": "line",
-    "source": "district",
-    "layout": {},
-    "paint": {
-      "line-color": "#dbe2ee", //#708090
-      "line-width": 1
+  addEventListener('keyup', function(e) {
+    if ($('#filter-input').val() != "") {
+      addEventListener('keyup', function(e) {
+            // If the input value matches a layerID set
+            // it's visibility to 'visible' or else hide it.
+
+              var value = e.target.value.trim().toLowerCase();
+              var places = [];
+
+            map.setFilter("state-fills", ["==", "NAME", ""]);
+            gon.tags.forEach(function(tag) {
+            if (value == tag.content) {
+              places.push(tag.name);
+              return;
+            } else {
+              RemoveLayers(districts);
+              return;
+            }
+            });
+            if (places.length > 0) {
+              places.forEach(function(place) {
+              var layerID = "fills-" + place;
+              map.setLayoutProperty(layerID, 'visibility');
+              return;
+              });
+            } else {
+              return;
+            }
+            return;
+        });
     }
   });
 
-  map.addLayer({
-
-    "id": "neighbor",
-    "type": "symbol",
-    "source": "district",
-    "layout": {
-      "text-field": "{tag}",
-      "text-size": 11,
-      "text-font": ["Courier Prime Bold"],
-    },
-        "paint": {
-          "text-color": "#606060"
-        }
-  });
-
-  // geo.features.forEach(function(district) {
-  //   console.log(district.properties.NAME)
-  // });
-
-  var districts = gon.district;
-
-
-
-
-
-  districts.forEach(function(district) {
-      var rgb = [];
-      for(var i = 0; i < 3; i++)
-        rgb.push(Math.floor(Math.random() * 255));
-
-      var color = 'rgb('+ rgb.join(',') +')';
-      var layerID = "fills-" + district['name'];
-
-      map.addLayer({
-        "id": layerID,
-        "type": "fill",
-        "source": "district",
-        "layout": {},
-        "paint": {
-          "fill-color": "#4f4f51",
-          "fill-opacity": 0.5
-        },
-        "filter": ["==", "NAME", ""]
-      });
-
-      map.setFilter(layerID, ["==", "NAME", district['name']]);
-
-      map.addLayer({
-        "id": "color-" + district['name'],
-        "type": "fill",
-        "source": "district",
-        "layout": {},
-        "paint": {
-          "fill-color": color,
-          "fill-opacity": 0.1
-        },
-        "filter": ["==", "NAME", ""]
-      });
-
-      map.addLayer({
-        "id": "select-color-" + district['name'],
-        "type": "fill",
-        "source": "district",
-        "layout": {},
-        "paint": {
-          "fill-color": color,
-          "fill-opacity": 0.7
-        },
-        "filter": ["==", "NAME", ""]
-      });
-
-      map.setFilter("color-" + district['name'], ["==", "NAME", district['name']]);
-      map.setFilter("select-color-" + district['name'], ["==", "NAME", district['name']]);
-
-    });
-
-  var RemoveLayers = function(districts) {
-    districts.forEach(function(district) {
-      var layerID = "fills-" + district['name'];
-      map.setLayoutProperty(layerID, 'visibility', 'none');
-      map.setLayoutProperty("select-color-" + district['name'], 'visibility', 'none');
-    });
-  }
-
-  RemoveLayers(districts)
-  NProgress.done();
-
-  filterInput.addEventListener('keyup', function(e) {
-      // If the input value matches a layerID set
-      // it's visibility to 'visible' or else hide it.
-      var value = e.target.value.trim().toLowerCase();
-      var places = []
-      map.setFilter("state-fills", ["==", "NAME", ""]);
-      gon.tags.forEach(function(tag) {
-      if (value == tag.content) {
-        places.push(tag.name);
-      } else {
-        RemoveLayers(districts);
-        return;
-      }
-      });
-      // if (places.length > 0) {
-        places.forEach(function(place) {
-        var layerID = "fills-" + place;
-        map.setLayoutProperty(layerID, 'visibility');
-        });
-      // } else {
-      //   return;
-      // }
   });
 
 
 
-  map.on('click', 'state-fills', function (e) {
-
-      try{
-      map.setLayoutProperty(previous_district.slice(-1)[0], 'visibility', 'none');
-      }catch(e){
-      functionToHandleError(e);
-      }
-
-      map.setLayoutProperty("select-color-" + e.features[0].properties.NAME, 'visibility');
-      previous_district.push("select-color-" + e.features[0].properties.NAME)
-
-
-    // map.addLayer({
-    //   "id": "state-select",
-    //   "type": "fill",
-    //   "source": "district",
-    //   "layout": {},
-    //   "paint": {
-    //     "fill-color": "#4173ad",
-    //     "fill-opacity": 0.6
-    //   }
-    // });
-
-    $.ajax({
-      url: "<%= @city.id %>/fetch_name",
-      type: "post",
-      data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
-    });
-
-    // map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME])
-
-    $('.cards').show();
-
-
-    var neighbor_name = e.features[0].properties.NAME;
-
-    var district_id = e.features[0].properties.ID;
-    $('#pop_up_name').html(neighbor_name);
-    $('#district_name').html(neighbor_name);
-
-
-    var all_district = gon.district
-    $('#top_tag').text(all_district[district_id].description);
-
-
-
-    // preventDefault();
-
-  });
-
-// map.on("mousemove", "state-fills", function(e) {
-//     map.setFilter("state-fills-hover", ["==", "NAME", e.features[0].properties.NAME]);
-// });
-
-// // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
-// map.on("mouseleave", "state-fills", function() {
-//     map.setFilter("state-fills-hover", ["==", "NAME", ""]);
-// });
-
-// Change the cursor to a pointer when the mouse is over the places layer.
-map.on('mouseenter', 'state-fills', function () {
-  map.getCanvas().style.cursor = 'pointer';
-});
-
-// Change it back to a pointer when it leaves.
-map.on('mouseleave', 'state-fills', function () {
-  map.getCanvas().style.cursor = '';
-});
-});
-
-
-
-</script>
+  </script>
