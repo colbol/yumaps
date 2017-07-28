@@ -6,7 +6,9 @@ class ResultsController < ApplicationController
     if @pg_search_documents
       redirect_to city_path(@pg_search_documents)
     else
-      flash[:alert] = 'City currently note available'
+
+      flash[:alert] = 'This city is currently not available.'
+
       redirect_to root_path
     end
   end
