@@ -263,6 +263,32 @@ district_vieux_montréal = District.create(name: arr[11][0], city_id: city.first
   end
 puts "Seed Vieux-Montréal finished, data created!"
 
+district_lasalle = District.create(name: arr[15][0], city_id: city.first.id, description: arr[15][2])
+ tag_lasalle = Tag.create(content: "quiet", district_id: district_lasalle, name: district_lasalle.name, district_index: arr[15][1])
+ 23.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_lasalle.id)
+  end
+  40.times do
+   tag_lasalle = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_lasalle.id, name: district_lasalle.name, district_index: arr[15][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_lasalle.id)
+    end
+  end
+puts "Seed lasalle finished, data created!"
+
+district_sud_ouest = District.create(name: arr[14][0], city_id: city.first.id, description: arr[15][2])
+ tag_sud_ouest = Tag.create(content: "quiet", district_id: district_sud_ouest, name: district_sud_ouest.name, district_index: arr[15][1])
+ 23.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_sud_ouest.id)
+  end
+  40.times do
+   tag_sud_ouest= Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_sud_ouest.id, name: district_sud_ouest.name, district_index: arr[15][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_sud_ouest.id)
+    end
+  end
+puts "Seed Sud-ouest finished, data created!"
+
 
 
 
