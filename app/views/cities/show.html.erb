@@ -1,6 +1,6 @@
 <% content_for :meta_title, "#{@city.name} is on #{DEFAULT_META["meta_product_name"]}" %>
 <% content_for :meta_description, "Your city" %>
-<% content_for :meta_image, image_tag("world-background.png") %>
+<% content_for :meta_image, image_tag("yutags-montreal.png") %>
 
 <div class="city-container">
   <div class="map-div" id='map'></div>
@@ -33,19 +33,93 @@
     </div>
   </div>
 
+
+  <div class="cards">
+
+   <div class="card active" id="behance">
+    <div class="card-content">
+    <a class="toggle-property card-toggle"><i><span class="fa fa-info"></span></i></a>
+    <a class="toggle-property card-toggle-x" id="close"><i><span class="fa fa-times"></span></i></a>
+      <div class="row">
+          <!-- <h2 id="district_name"><strong></strong></h2> -->
+
+          <div id="tags_list" ></div>
+      </div>
+    </div>
+
+
+  </div>
+
+
   <div class="card" id="overview">
     <div class="card-content">
      <a class="toggle-property card-toggle"><i class="fa fa-arrow-circle-left"></i></a>
       <div class="row">
+
         <div class="scroll_top_tag">
           <h2 id="district_name"><strong></strong></h2>
           <p class="top_tag_property" id="top_tag"></p>
         </div>
         <p></p>
+
       </div>
     </div>
   </div>
-  </div>
+
+
+
+</div>
+
+
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+
+    $(".card-toggle").on("click", function(){
+
+      // Card toggle state
+      $(".card").toggleClass("active");
+
+      var isAnimating = false;
+
+      if( !isAnimating ){
+        isAnimating = true;
+
+        $(".card").find(".card-content").css("z-index",0);
+
+        var that = $(this);
+
+        $(this).siblings().css("z-index",1);
+
+        setTimeout(function(){
+          that.parent().toggleClass("active").find(".card-content").on("transitionend", function(){
+            isAnimating = false;
+          }); ;
+
+        },10);
+      } else {
+        return;
+      }
+    });
+
+    $("input,textarea").blur(function(){
+      if( $(this).val() ){
+        $(this).parent().addClass("filled");
+      } else {
+        $(this).parent().removeClass("filled");
+      }
+    });
+
+    $(".contact").on("click",function(){
+      $(".contact-form").toggleClass("active");
+    });
+    $(".contact-form input[type=submit], .contact-form .close").on("click",function(e){
+      e.preventDefault();
+      $(".contact-form").toggleClass("active")
+    });
+
+  <% end %>
+<% end %>
 
 </div>
 
