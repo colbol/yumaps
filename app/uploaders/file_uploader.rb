@@ -6,7 +6,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :fog
-
+  #binding.pry
   def filename
     "montreal.geojson"
   end
@@ -15,6 +15,8 @@ class FileUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads"
   end
+
+
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)

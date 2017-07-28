@@ -7,7 +7,7 @@ class CitiesController < ApplicationController
     # Not sure where we use this
     @city = City.find(params[:id])
     # Opens the file from amazon server which we use in the map partial with the addsource
-    filepath = "https://s3.us-east-2.amazonaws.com/yumaps/uploads/montreal.geojson"
+    filepath = "https://s3.eu-central-1.amazonaws.com/hello-wine/uploads/montreal.geojson"
     file = open(filepath)
     gon.json = JSON.parse(file.first)
     #Sends the tags to the map partial for the filter feature
