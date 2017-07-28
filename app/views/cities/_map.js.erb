@@ -31,11 +31,11 @@
     container: 'map',
     style: 'mapbox://styles/salimchorfi/cj5mic58e3gcg2so1981xo8pd',
     center: [-73.694, 45.546],
-  zoom: 10.3 // starting zoom
+  zoom: 10.4 // starting zoom
 
   });
 
-  // map.scrollZoom.disable();
+  map.scrollZoom.disable();
 
   var layerIDs = [];
   var filterInput = document.getElementById('filter-input');
@@ -91,7 +91,7 @@
       "source": "district",
       "layout": {
         "text-field": "{tag}",
-        "text-size": 11,
+        "text-size": 12,
         "text-font": ["Courier Prime Bold"],
       },
           "paint": {
