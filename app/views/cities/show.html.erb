@@ -21,7 +21,17 @@
     <input id='filter-input' type='text' name='filter' placeholder='Filter by tag' />
   </div>
 
-
+  <div class="cards">
+   <div class="card active" id="behance">
+    <div class="card-content">
+    <a class="toggle-property card-toggle" id="top"><i><span class="fa fa-info"></span></i></a>
+    <a class="toggle-property card-toggle-x" id="close"><i><span class="fa fa-times"></span></i></a>
+      <div class="row">
+          <h2 id="district_name"><strong></strong></h2>
+          <div id="tags_list"></div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="cards">
@@ -36,6 +46,8 @@
           <div id="tags_list" ></div>
       </div>
     </div>
+
+
   </div>
 
 
@@ -105,3 +117,38 @@
 <% end %>
 
 </div>
+
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+
+    $(".card-toggle").on("click", function(){
+
+      // Card toggle state
+      $(".card").toggleClass("active");
+
+      var isAnimating = false;
+
+      if( !isAnimating ){
+        isAnimating = true;
+
+        $(".card").find(".card-content").css("z-index",0);
+
+        var that = $(this);
+
+        $(this).siblings().css("z-index",1);
+
+        setTimeout(function(){
+          that.parent().toggleClass("active").find(".card-content").on("transitionend", function(){
+            isAnimating = false;
+          }); ;
+
+        },10);
+      } else {
+        return;
+      }
+    });
+
+  <% end %>
+<% end %>
+

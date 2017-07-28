@@ -22,6 +22,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'faker'
+gem 'addressable'
 
 group :development, :test do
   gem 'better_errors'

@@ -1,5 +1,3 @@
-<div class="city-tag-title"><h3><%= name %></h3></div>
-<div class="line"></div>
 <div class="scroll">
   <ol>
   <div class="city-tag-ranking">
@@ -24,9 +22,12 @@
         <%= f.hidden_field :name, value: name %>
         <%= f.hidden_field :district_index, value: district_index %>
         <%= f.hidden_field :district_id, value: District.find_by(name: name).id %>
+
+
+
       </div>
       <div class="form-actions">
-        <a id="submit_button"><%= f.button :submit, "Submit" %></a>
+        <a id="submit_button"><%= f.button :submit, "Submit", :style => "display: none;" %></a>
       </div>
       <% end %>
       <center><div id="result"></div></center>

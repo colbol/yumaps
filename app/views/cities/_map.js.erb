@@ -1,12 +1,15 @@
 <script>
+NProgress.start();
 
+var previous_district = []
 
 $( document ).ready(function() {
   $('.cards').hide();
+
       $('#close').on('click', function(){
         $('.cards').hide();
-        map.setLayoutProperty("state-select", 'visibility', 'none');
-    });
+        map.setLayoutProperty(previous_district.slice(-1)[0], 'visibility', 'none');
+      });
 });
 
 arr = []
@@ -94,11 +97,12 @@ map.on('load', function () {
     "source": "district",
     "layout": {
       "text-field": "{tag}",
-      "text-size": 13,
-    }
-    // "paint": {
-    //   "text-color": "white",
-    // },
+      "text-size": 11,
+      "text-font": ["Courier Prime Bold"],
+    },
+        "paint": {
+          "text-color": "#606060"
+        }
   });
 
   // geo.features.forEach(function(district) {
@@ -109,32 +113,69 @@ map.on('load', function () {
 
 
 
+
+
   districts.forEach(function(district) {
+      var rgb = [];
+      for(var i = 0; i < 3; i++)
+        rgb.push(Math.floor(Math.random() * 255));
+
+      var color = 'rgb('+ rgb.join(',') +')';
       var layerID = "fills-" + district['name'];
-      console.log(layerID);
+
       map.addLayer({
         "id": layerID,
         "type": "fill",
         "source": "district",
         "layout": {},
         "paint": {
-          "fill-color": "#fff",
+          "fill-color": "#4f4f51",
           "fill-opacity": 0.5
         },
         "filter": ["==", "NAME", ""]
       });
+
       map.setFilter(layerID, ["==", "NAME", district['name']]);
+
+      map.addLayer({
+        "id": "color-" + district['name'],
+        "type": "fill",
+        "source": "district",
+        "layout": {},
+        "paint": {
+          "fill-color": color,
+          "fill-opacity": 0.1
+        },
+        "filter": ["==", "NAME", ""]
+      });
+
+      map.addLayer({
+        "id": "select-color-" + district['name'],
+        "type": "fill",
+        "source": "district",
+        "layout": {},
+        "paint": {
+          "fill-color": color,
+          "fill-opacity": 0.7
+        },
+        "filter": ["==", "NAME", ""]
+      });
+
+      map.setFilter("color-" + district['name'], ["==", "NAME", district['name']]);
+      map.setFilter("select-color-" + district['name'], ["==", "NAME", district['name']]);
+
     });
 
   var RemoveLayers = function(districts) {
     districts.forEach(function(district) {
       var layerID = "fills-" + district['name'];
       map.setLayoutProperty(layerID, 'visibility', 'none');
+      map.setLayoutProperty("select-color-" + district['name'], 'visibility', 'none');
     });
   }
 
   RemoveLayers(districts)
-
+  NProgress.done();
 
   filterInput.addEventListener('keyup', function(e) {
       // If the input value matches a layerID set
@@ -146,30 +187,44 @@ map.on('load', function () {
       if (value == tag.content) {
         places.push(tag.name);
       } else {
-        RemoveLayers(districts)
+        RemoveLayers(districts);
+        return;
       }
       });
-      places.forEach(function(place) {
+      // if (places.length > 0) {
+        places.forEach(function(place) {
         var layerID = "fills-" + place;
         map.setLayoutProperty(layerID, 'visibility');
-      });
+        });
+      // } else {
+      //   return;
+      // }
   });
+
 
 
   map.on('click', 'state-fills', function (e) {
 
-    map.removeLayer("state-select");
-
-    map.addLayer({
-      "id": "state-select",
-      "type": "fill",
-      "source": "district",
-      "layout": {},
-      "paint": {
-        "fill-color": "#4173ad",
-        "fill-opacity": 0.6
+      try{
+      map.setLayoutProperty(previous_district.slice(-1)[0], 'visibility', 'none');
+      }catch(e){
+      functionToHandleError(e);
       }
-    });
+
+      map.setLayoutProperty("select-color-" + e.features[0].properties.NAME, 'visibility');
+      previous_district.push("select-color-" + e.features[0].properties.NAME)
+
+
+    // map.addLayer({
+    //   "id": "state-select",
+    //   "type": "fill",
+    //   "source": "district",
+    //   "layout": {},
+    //   "paint": {
+    //     "fill-color": "#4173ad",
+    //     "fill-opacity": 0.6
+    //   }
+    // });
 
     $.ajax({
       url: "<%= @city.id %>/fetch_name",
@@ -177,14 +232,20 @@ map.on('load', function () {
       data: {name: e.features[0].properties.NAME, district_index: arr.indexOf(e.features[0].properties.NAME)},
     });
 
-    map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME]);
+    // map.setFilter("state-select", ["==", "NAME", e.features[0].properties.NAME])
 
-    // $('.cards').show();
+    $('.cards').show();
 
 
     var neighbor_name = e.features[0].properties.NAME;
-    // $('#pop_up_name').html(neighbor_name);
-    // $('#district_name').html(neighbor_name);
+
+    var district_id = e.features[0].properties.ID;
+    $('#pop_up_name').html(neighbor_name);
+    $('#district_name').html(neighbor_name);
+
+
+    var all_district = gon.district
+    $('#top_tag').text(all_district[district_id].description);
 
 
 
