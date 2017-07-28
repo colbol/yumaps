@@ -17,18 +17,17 @@ Vote.destroy_all
 countries = Country.create([{ name: 'Canada'}])
 # countries = Country.create([{ name: 'Monaco'}])
 # countries = Country.create([{ name: 'Belarus'}])
-city_params =
-[
-  {name: 'Montreal' , longitude: 45.5017, latitude: 73.5673, zoom: 7,country_id: (Country.find_by name: 'Canada').id  },
-  # {name: 'Toronto' , longitude: 43.6532, latitude: 79.3832, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
-  # {name: 'Calgary' , longitude: 51.0486, latitude: 114.0708, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
-  # {name: 'Winnipeg' , longitude: 49.8951, latitude: 97.1384, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
-  # {name: 'Whitehorse' , longitude: 60.7212, latitude: 135.0568, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
-  # {name: 'Monaco City' , longitude: 43.7308, latitude: 7.4226, zoom: 3,country_id: (Country.find_by name: 'Monaco').id  },
-  # {name: 'Minsk' , longitude: 53.9045, latitude: 127.5615, zoom: 3,country_id: (Country.find_by name: 'Belarus').id  },
-  # {name: 'Ottawa' , longitude: 30, latitude: 20, zoom: 1,country_id: (Country.find_by name: 'Canada').id  }
-]
-
+city = City.create([{name: 'Montreal' , longitude: 45.5017, latitude: 73.5673, zoom: 7,country_id: (Country.find_by name: 'Canada').id}])
+# [{name: 'Montreal' , longitude: 45.5017, latitude: 73.5673, zoom: 7,country_id: (Country.find_by name: 'Canada').id  },
+#   # {name: 'Toronto' , longitude: 43.6532, latitude: 79.3832, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+#   # {name: 'Calgary' , longitude: 51.0486, latitude: 114.0708, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+#   # {name: 'Winnipeg' , longitude: 49.8951, latitude: 97.1384, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+#   # {name: 'Whitehorse' , longitude: 60.7212, latitude: 135.0568, zoom: 3,country_id: (Country.find_by name: 'Canada').id  },
+#   # {name: 'Monaco City' , longitude: 43.7308, latitude: 7.4226, zoom: 3,country_id: (Country.find_by name: 'Monaco').id  },
+#   # {name: 'Minsk' , longitude: 53.9045, latitude: 127.5615, zoom: 3,country_id: (Country.find_by name: 'Belarus').id  },
+#   # {name: 'Ottawa' , longitude: 30, latitude: 20, zoom: 1,country_id: (Country.find_by name: 'Canada').id  }
+# ]
+   #=> []
 arr = [
 
 ["Ahuntsic", 0, "Ahuntsic is a district in the northern part of Montreal, Quebec, Canada. Originally an independent village, Ahuntsic was annexed by Montreal in 1910. It is now part of the borough of Ahuntsic-Cartierville.
@@ -99,18 +98,58 @@ Montreal's Little Portugal neighbourhood is situated in the western portion of t
 ["Repentigny", 28, "Repentigny is an off-island suburb of Montreal, Quebec, Canada, located north of Montreal on the lower end of the L'Assomption River and on the Saint Lawrence River. Repentigny and Charlemagne were the first towns off the eastern tip of the island of Montreal. Repentigny is part of the Lanaudiere region."],
 
 ["Chateauguay", 29, "Châteauguay is an off-island suburb of Montreal, in southwestern Quebec, located both on the Chateauguay River and Lac St-Louis, which is a section of the St. Lawrence River. The population of the city of Châteauguay at the 2011 Census was 45,904, and the population centre was 70,812"]
-
 ]
 
+# tag_content.new(30)
 #city_params.each do |params|
 puts "Creating data.."
-city = City.create(city_params)
 
+arr = arr.to_a
+
+
+ district_westmount = District.create(name: arr[12][0], city_id: city.first.id, description: arr[12][2])
+ tag_westmount = Tag.create(content: "rich", district_id: district_westmount.id, name: district_westmount.name, district_index: district_westmount[1])
+ 28.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_westmount.id)
+  end
+  40.times do
+   tag_westmount = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_westmount.id, name: district_westmount.name, district_index: arr[12][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_westmount.id)
+    end
+  end
+puts "Seed westmount finished, data created!"
+
+ district_West_Island = District.create(name: arr[17][0], city_id: city.first.id, description: arr[17][2])
+ tag_West_Island = Tag.create(content: "anglo", district_id: district_West_Island.id, name: district_West_Island.name, district_index: arr[17][1])
+ 26.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_West_Island.id)
+  end
+  40.times do
+   tag_West_Island = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_West_Island.id, name: district_West_Island.name, district_index: arr[17][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_West_Island.id)
+    end
+  end
+puts "Seed West Island finished, data created!"
+
+ district_Brossard = District.create(name: arr[19][0], city_id: city.first.id, description: arr[19][2])
+ tag_Brossard = Tag.create(content: "chinese", district_id: district_Brossard.id, name: district_Brossard.name, district_index: arr[19][1])
+ 28.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Brossard.id)
+  end
+  40.times do
+   tag_Brossard = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_Brossard.id, name: district_Brossard.name, district_index: arr[19][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Brossard.id)
+    end
+  end
+puts "Seed Brossard finished, data created!"
 arr.each do |name|
   district = District.create(name: name[0], city_id: city.first.id, description: name[2])
   40.times do
     tag = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district.id, name: district.name, district_index: name[1])
-    rand(1..30).times do
+    rand(1..12).times do
       Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag.id)
     end
   end
