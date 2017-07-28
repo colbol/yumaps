@@ -145,6 +145,129 @@ puts "Seed West Island finished, data created!"
     end
   end
 puts "Seed Brossard finished, data created!"
+
+ district_Laval_est = District.create(name: arr[25][0], city_id: city.first.id, description: arr[25][2])
+ tag_Laval_est = Tag.create(content: "pay toll", district_id: district_Laval_est.id, name: district_Laval_est.name, district_index: arr[25][1])
+ 21.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Laval_est.id)
+  end
+  40.times do
+   tag_Laval_est = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_Laval_est.id, name: district_Laval_est.name, district_index: arr[19][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Laval_est.id)
+    end
+  end
+puts "Seed Laval_est finished, data created!"
+
+district_Laval_nord = District.create(name: arr[26][0], city_id: city.first.id, description: arr[26][2])
+ tag_Laval_nord = Tag.create(content: "north", district_id: district_Laval_nord.id, name: district_Laval_nord.name, district_index: arr[26][1])
+ 17.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Laval_nord.id)
+  end
+  40.times do
+   tag_Laval_est = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_Laval_nord.id, name: district_Laval_nord.name, district_index: arr[26][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Laval_nord.id)
+    end
+  end
+puts "Seed Laval_nord finished, data created!"
+
+district_laval = District.create(name: arr[18][0], city_id: city.first.id, description: arr[18][2])
+ tag_laval = Tag.create(content: "carrefour laval", district_id: district_laval.id, name: district_laval.name, district_index: arr[18][1])
+ 17.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_laval.id)
+  end
+  40.times do
+   tag_laval = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_laval.id, name: district_Laval_nord.name, district_index: arr[18][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_laval.id)
+    end
+  end
+puts "Seed laval finished, data created!"
+
+district_laval_ouest = District.create(name: arr[24][0], city_id: city.first.id, description: arr[24][2])
+ tag_laval_ouest = Tag.create(content: "household", district_id: district_laval_ouest.id, name: district_laval_ouest.name, district_index: arr[24][1])
+ 19.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_laval_ouest.id)
+  end
+  40.times do
+   tag_laval_ouest = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_laval_ouest.id, name: district_laval_ouest.name, district_index: arr[24][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_laval_ouest.id)
+    end
+  end
+puts "Seed laval_ouest finished, data created!"
+
+district_Île_Bizard = District.create(name: arr[23][0], city_id: city.first.id, description: arr[23][2])
+ tag_Île_Bizard = Tag.create(content: "golf", district_id: district_Île_Bizard.id, name: district_Île_Bizard.name, district_index: arr[23][1])
+ 22.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Île_Bizard.id)
+  end
+  40.times do
+   tag_Île_Bizard = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_Île_Bizard.id, name: district_Île_Bizard.name, district_index: arr[23][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_Île_Bizard.id)
+    end
+  end
+puts "Seed Île Bizard finished, data created!"
+
+district_pierrefonds = District.create(name: arr[16][0], city_id: city.first.id, description: arr[16][2])
+ tag_pierrefonds = Tag.create(content: "fairview", district_id: district_pierrefonds, name: district_pierrefonds.name, district_index: arr[16][1])
+ 22.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_pierrefonds.id)
+  end
+  40.times do
+   tag_pierrefonds = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_pierrefonds.id, name: district_pierrefonds.name, district_index: arr[16][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_pierrefonds.id)
+    end
+  end
+puts "Seed Pierrefonds finished, data created!"
+
+district_dorval = District.create(name: arr[13][0], city_id: city.first.id, description: arr[13][2])
+ tag_dorval = Tag.create(content: "airport", district_id: district_dorval, name: district_dorval.name, district_index: arr[13][1])
+ 25.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_dorval.id)
+  end
+  40.times do
+   tag_dorval = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_dorval.id, name: district_dorval.name, district_index: arr[13][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_dorval.id)
+    end
+  end
+puts "Seed dorval finished, data created!"
+
+district_saint_laurent = District.create(name: arr[20][0], city_id: city.first.id, description: arr[20][2])
+ tag_saint_laurent = Tag.create(content: "suburban", district_id: district_saint_laurent, name: district_saint_laurent.name, district_index: arr[20][1])
+ 28.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_saint_laurent.id)
+  end
+  40.times do
+   tag_saint_laurent = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_saint_laurent.id, name: district_saint_laurent.name, district_index: arr[20][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_saint_laurent.id)
+    end
+  end
+puts "Seed saint_laurent finished, data created!"
+
+district_vieux_montréal = District.create(name: arr[11][0], city_id: city.first.id, description: arr[11][2])
+ tag_vieux_montréal = Tag.create(content: "history", district_id: district_vieux_montréal, name: district_vieux_montréal.name, district_index: arr[11][1])
+ 22.times do
+    Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_vieux_montréal.id)
+  end
+  40.times do
+   tag_vieux_montréal = Tag.create(content: Faker::Hipster.words(1)[0], district_id: district_vieux_montréal.id, name: district_vieux_montréal.name, district_index: arr[11][1])
+    rand(1..15).times do
+      Vote.create(ip: Faker::Internet.ip_v4_address, tag_id: tag_vieux_montréal.id)
+    end
+  end
+puts "Seed Vieux-Montréal finished, data created!"
+
+
+
+
+
+
 arr.each do |name|
   district = District.create(name: name[0], city_id: city.first.id, description: name[2])
   40.times do
